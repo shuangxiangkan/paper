@@ -5,7 +5,7 @@ This project mainly includes the latex files of my papers, both published and un
 - [Structure fault-tolerance of the augmented cube](#structure-fault-tolerance-of-the-augmented-cube)
 - [The Communication Performance of BCDC Data Center Network](#the-communication-performance-of-bcdc-data-center-network)
 - [The 3-extra conditional diagnosability of Augmented cubes](#the-3-extra-conditional-diagnosability-of-augmented-cubes)
-- [Conditional diagnosability of BCDC](#conditional-diagnosability-of-bcdc)
+
 
 
 ### Structure fault-tolerance of the augmented cube
@@ -21,6 +21,4 @@ This project mainly includes the latex files of my papers, both published and un
 
 `abstract`:  Diagnosis is an important indicator to measure the fault tolerance and reliability of the network. Diagnosis is the process of identifying faulty nodes in the network. The stronger the diagnosis ability, the faster the fault nodes in the network are found, and the more stable the network is. The maximum number of faulty nodes that a network can detect is called the diagnosability of the network. Therefore, the fault diagnosis ability is one of the important indicators to measure the reliability of the network. Therefore, in this paper, we hope to study the 3-additional connectivity diagnosis degree of the extended cube and give the corresponding diagnosis algorithm.
 
-### Conditional diagnosability of BCDC
 
-`abstract`:  
