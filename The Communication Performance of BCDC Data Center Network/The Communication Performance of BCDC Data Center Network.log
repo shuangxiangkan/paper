@@ -1,0 +1,676 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2018.9.18)  10 MAY 2020 15:16
+entering extended mode
+**The*Communication*Performance*of*BCDC*Data*Center*Network.tex
+
+("D:\GitKraken\bcdc5\The Communication Performance of BCDC Data Center Network.
+tex"
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for loaded.
+(D:\GitKraken\bcdc5\IEEEtran.cls
+Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
+-- See the "IEEEtran_HOWTO" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/
+\@IEEEtrantmpdimenA=\dimen102
+\@IEEEtrantmpdimenB=\dimen103
+\@IEEEtrantmpdimenC=\dimen104
+\@IEEEtrantmpcountA=\count79
+\@IEEEtrantmpcountB=\count80
+\@IEEEtrantmpcountC=\count81
+\@IEEEtrantmptoksA=\toks14
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 503.
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\psnfss\ot1ptm.fd"
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+-- Using 8.5in x 11in (letter) paper.
+-- Using PDF output.
+\@IEEEnormalsizeunitybaselineskip=\dimen105
+-- This is a 10 point document.
+\CLASSINFOnormalsizebaselineskip=\dimen106
+\CLASSINFOnormalsizeunitybaselineskip=\dimen107
+\IEEEnormaljot=\dimen108
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+\IEEEquantizedlength=\dimen109
+\IEEEquantizedlengthdiff=\dimen110
+\IEEEquantizedtextheightdiff=\dimen111
+\IEEEilabelindentA=\dimen112
+\IEEEilabelindentB=\dimen113
+\IEEEilabelindent=\dimen114
+\IEEEelabelindent=\dimen115
+\IEEEdlabelindent=\dimen116
+\IEEElabelindent=\dimen117
+\IEEEiednormlabelsep=\dimen118
+\IEEEiedmathlabelsep=\dimen119
+\IEEEiedtopsep=\skip41
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@IEEEsubequation=\count86
+\abovecaptionskip=\skip42
+\belowcaptionskip=\skip43
+\c@figure=\count87
+\c@table=\count88
+\@IEEEeqnnumcols=\count89
+\@IEEEeqncolcnt=\count90
+\@IEEEsubeqnnumrollback=\count91
+\@IEEEquantizeheightA=\dimen120
+\@IEEEquantizeheightB=\dimen121
+\@IEEEquantizeheightC=\dimen122
+\@IEEEquantizeprevdepth=\dimen123
+\@IEEEquantizemultiple=\count92
+\@IEEEquantizeboxA=\box26
+\@IEEEtmpitemindent=\dimen124
+\IEEEPARstartletwidth=\dimen125
+\c@IEEEbiography=\count93
+\@IEEEtranrubishbin=\box27
+)
+** ATTENTION: Overriding command lockouts (line 2).
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\cite\cite.sty"
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 373.
+Package: cite 2010/09/10  v 5.3
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty"
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip44
+
+For additional information on amsmath, use the `?' option.
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks15
+\ex@=\dimen126
+))
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen127
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count94
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count95
+\leftroot@=\count96
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count97
+\DOTSCASE@=\count98
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen128
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count99
+\c@MaxMatrixCols=\count100
+\dotsspace@=\muskip10
+\c@parentequation=\count101
+\dspbrk@lvl=\count102
+\tag@help=\toks16
+\row@=\count103
+\column@=\count104
+\maxfields@=\count105
+\andhelp@=\toks17
+\eqnshift@=\dimen129
+\alignsep@=\dimen130
+\tagshift@=\dimen131
+\tagwidth@=\dimen132
+\totwidth@=\dimen133
+\lineht@=\dimen134
+\@envbody=\toks18
+\multlinegap=\skip45
+\multlinetaggap=\skip46
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2009/06/22 v3.00
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\ams\classes\amsthm.sty"
+Package: amsthm 2004/08/06 v2.20
+\thm@style=\toks20
+\thm@bodyfont=\toks21
+\thm@headfont=\toks22
+\thm@notefont=\toks23
+\thm@headpunct=\toks24
+\thm@preskip=\skip47
+\thm@postskip=\skip48
+\thm@headsep=\skip49
+\dth@everypar=\toks25
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\algorithms\algorithm.sty"
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count106
+\float@exts=\toks26
+\float@box=\box30
+\@float@everytoks=\toks27
+\@floatcapt=\box31
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks28
+\c@algorithm=\count107
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\algorithmicx\algpseudocode.sty"
+Package: algpseudocode 
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\algorithmicx\algorithmicx.sty"
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count108
+\c@ALG@rem=\count109
+\c@ALG@nested=\count110
+\ALG@tlm=\skip50
+\ALG@thistlm=\skip51
+\c@ALG@Lnr=\count111
+\c@ALG@blocknr=\count112
+\c@ALG@storecount=\count113
+\c@ALG@tmpcounter=\count114
+\ALG@tmplength=\skip52
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) ("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\subfigure\subfigure.sty"
+Package: subfigure 2002/07/30 v2.1.4 subfigure package
+\subfigtopskip=\skip53
+\subfigcapskip=\skip54
+\subfigcaptopadj=\dimen135
+\subfigbottomskip=\skip55
+\subfigcapmargin=\dimen136
+\subfiglabelskip=\skip56
+\c@subfigure=\count115
+\c@lofdepth=\count116
+\c@subtable=\count117
+\c@lotdepth=\count118
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\subfigure\subfigure.cfg")
+\subfig@top=\skip57
+\subfig@bottom=\skip58
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks29
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count119
+))
+\Gin@req@height=\dimen137
+\Gin@req@width=\dimen138
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\oberdiek\epstopdf.sty"
+Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2010/08/19 v1.1 Managing graphics extensions (HO)
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\generic\oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
+))
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\generic\oberdiek\ifluatex.sty"
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\generic\oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+))
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\base\textcomp.sty"
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\base\ts1enc.def"
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 311.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 312.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 313.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 314.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 315.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 316.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 317.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 318.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 319.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 320.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 321.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 322.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 323.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 324.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 326.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 327.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 328.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 329.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 330.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 331.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 332.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 333.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 334.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 335.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 336.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 337.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\multirow\multirow.sty"
+\bigstrutjot=\dimen139
+)
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\xcolor\xcolor.sty"
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+\c@definition=\count120
+\c@theorem=\count121
+\c@lemma=\count122
+
+("D:\GitKraken\bcdc5\The Communication Performance of BCDC Data Center Network.
+aux"
+
+LaTeX Warning: Label `restrictedConnectivity' multiply defined.
+
+)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 45.
+ ("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\base\ts1cmr.fd"
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 45.
+
+-- Lines per column: 56 (exact).
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count123
+\scratchdimen=\dimen140
+\scratchbox=\box32
+\nofMPsegments=\count124
+\nofMParguments=\count125
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count126
+\MPscratchDim=\dimen141
+\MPnumerator=\count127
+\makeMPintoPDFobject=\count128
+\everyMPtoPDFconversion=\toks31
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 62.
+ ("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 62.
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 62.
+ [1{D:/Program Files(x86)/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{U
+GBK.sfd}}
+
+
+]
+Underfull \hbox (badness 1400) in paragraph at lines 97--98
+$\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; x[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 2
+ \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 G\OT1/cmr/m/n/10 )$ \OT1/p
+tm/m/n/10 for $\OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10  \OML/cmm/m/it/10 i \OMS/cms
+y/m/n/10  \OML/cmm/m/it/10 n \OMS/cmsy/m/n/10   \OT1/cmr/m/n/10 2$\OT1/ptm/m/n
+/10 . We al-so
+ []
+
+Package epstopdf Info: Source file: <A3B3.eps>
+(epstopdf)                    date: 2020-05-10 15:15:59
+(epstopdf)                    size: 997721 bytes
+(epstopdf)             Output file: <A3B3-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-05-10 15:16:34
+(epstopdf)                    size: 158378 bytes
+(epstopdf)             Command: <epstopdf --outfile=A3B3-eps-converted-to.pdf A
+3B3.eps>
+(epstopdf)             \includegraphics on input line 110.
+Package epstopdf Info: Output file is already uptodate.
+<A3B3-eps-converted-to.pdf, id=12, 1696.3375pt x 787.94376pt>
+File: A3B3-eps-converted-to.pdf Graphic file (type pdf)
+
+<use A3B3-eps-converted-to.pdf>
+Package pdftex.def Info: A3B3-eps-converted-to.pdf used on input line 110.
+(pdftex.def)             Requested size: 339.26149pt x 157.58595pt.
+
+Underfull \vbox (badness 1297) has occurred while \output is active []
+
+ [2]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 325.
+
+
+("D:\Program Files(x86)\CTEX\MiKTeX\tex\latex\psnfss\ot1pcr.fd"
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [3 <D:/GitKraken/bcdc5/A3B3-eps-converted-to.pdf>]
+Underfull \hbox (badness 4378) in paragraph at lines 511--512
+[]\OT1/ptm/m/n/10 For switch (link) fault tol-er-ance, we stil-l use the
+ []
+
+[4]
+Package epstopdf Info: Source file: <broadcastTime.eps>
+(epstopdf)                    date: 2020-02-01 22:18:11
+(epstopdf)                    size: 299400 bytes
+(epstopdf)             Output file: <broadcastTime-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-02-01 22:18:11
+(epstopdf)                    size: 33133 bytes
+(epstopdf)             Command: <epstopdf --outfile=broadcastTime-eps-converted
+-to.pdf broadcastTime.eps>
+(epstopdf)             \includegraphics on input line 549.
+Package epstopdf Info: Output file is already uptodate.
+ <broadcastTime-eps-converted-to.pdf, id=471, 462.72874pt x 347.2975pt>
+File: broadcastTime-eps-converted-to.pdf Graphic file (type pdf)
+
+<use broadcastTime-eps-converted-to.pdf>
+Package pdftex.def Info: broadcastTime-eps-converted-to.pdf used on input line 
+549.
+(pdftex.def)             Requested size: 185.08821pt x 138.91653pt.
+Package epstopdf Info: Source file: <broadcastCpu.eps>
+(epstopdf)                    date: 2020-02-01 22:18:11
+(epstopdf)                    size: 283790 bytes
+(epstopdf)             Output file: <broadcastCpu-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-02-01 22:18:11
+(epstopdf)                    size: 29809 bytes
+(epstopdf)             Command: <epstopdf --outfile=broadcastCpu-eps-converted-
+to.pdf broadcastCpu.eps>
+(epstopdf)             \includegraphics on input line 552.
+Package epstopdf Info: Output file is already uptodate.
+
+<broadcastCpu-eps-converted-to.pdf, id=472, 462.72874pt x 347.2975pt>
+File: broadcastCpu-eps-converted-to.pdf Graphic file (type pdf)
+
+<use broadcastCpu-eps-converted-to.pdf>
+Package pdftex.def Info: broadcastCpu-eps-converted-to.pdf used on input line 5
+52.
+(pdftex.def)             Requested size: 185.08821pt x 138.91653pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5]
+Package epstopdf Info: Source file: <faultToleranceTransferRate.eps>
+(epstopdf)                    date: 2020-02-01 22:18:11
+(epstopdf)                    size: 313884 bytes
+(epstopdf)             Output file: <faultToleranceTransferRate-eps-converted-t
+o.pdf>
+(epstopdf)                    date: 2020-02-01 22:18:11
+(epstopdf)                    size: 38810 bytes
+(epstopdf)             Command: <epstopdf --outfile=faultToleranceTransferRate-
+eps-converted-to.pdf faultToleranceTransferRate.eps>
+(epstopdf)             \includegraphics on input line 568.
+Package epstopdf Info: Output file is already uptodate.
+
+<faultToleranceTransferRate-eps-converted-to.pdf, id=476, 462.72874pt x 347.297
+5pt>
+File: faultToleranceTransferRate-eps-converted-to.pdf Graphic file (type pdf)
+ <use faultToleranceTransferRate-eps-converted-to.pdf>
+Package pdftex.def Info: faultToleranceTransferRate-eps-converted-to.pdf used o
+n input line 568.
+(pdftex.def)             Requested size: 185.08821pt x 138.91653pt.
+Package epstopdf Info: Source file: <faultToleranceCpu.eps>
+(epstopdf)                    date: 2020-02-01 22:18:11
+(epstopdf)                    size: 295501 bytes
+(epstopdf)             Output file: <faultToleranceCpu-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-02-01 22:18:11
+(epstopdf)                    size: 34856 bytes
+(epstopdf)             Command: <epstopdf --outfile=faultToleranceCpu-eps-conve
+rted-to.pdf faultToleranceCpu.eps>
+(epstopdf)             \includegraphics on input line 571.
+Package epstopdf Info: Output file is already uptodate.
+
+<faultToleranceCpu-eps-converted-to.pdf, id=477, 462.72874pt x 347.2975pt>
+File: faultToleranceCpu-eps-converted-to.pdf Graphic file (type pdf)
+
+<use faultToleranceCpu-eps-converted-to.pdf>
+Package pdftex.def Info: faultToleranceCpu-eps-converted-to.pdf used on input l
+ine 571.
+(pdftex.def)             Requested size: 185.08821pt x 138.91653pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[6 <D:/GitKraken/bcdc5/broadcastTime-eps-converted-to.pdf> <D:/GitKraken/bcdc5/
+broadcastCpu-eps-converted-to.pdf> <D:/GitKraken/bcdc5/faultToleranceTransferRa
+te-eps-converted-to.pdf> <D:/GitKraken/bcdc5/faultToleranceCpu-eps-converted-to
+.pdf>]
+
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
+
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
+
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.
+
+[7]
+("D:\GitKraken\bcdc5\The Communication Performance of BCDC Data Center Network.
+aux")
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5220 strings out of 495354
+ 76831 string characters out of 3182795
+ 152426 words of memory out of 3000000
+ 8284 multiletter control sequences out of 15000+200000
+ 49238 words of font info for 109 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 42i,10n,35p,1762b,299s stack positions out of 5000i,500n,10000p,200000b,50000s
+{D:/Program Files(x86)/CTEX/MiKTeX/fonts/enc/dvips/fontname/8r.enc}<D:/Progra
+m Files(x86)/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Program 
+Files(x86)/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Program Fi
+les(x86)/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/Program Files
+(x86)/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/Program Files(x8
+6)/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files(x86)/
+CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/Program Files(x86)/CTE
+X/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files(x86)/CTEX/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/Program Files(x86)/CTEX/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/Program Files(x86)/CTEX/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files(x86)/CTEX/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr8.pfb><D:/Program Files(x86)/CTEX/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files(x86)/CTEX/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmsy5.pfb><D:/Program Files(x86)/CTEX/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmsy6.pfb><D:/Program Files(x86)/CTEX/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmsy7.pfb><D:/Program Files(x86)/CTEX/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmsy8.pfb><D:/Program Files(x86)/CTEX/MiKTeX/fonts/type1/urw/courier/
+ucrr8a.pfb><D:/Program Files(x86)/CTEX/MiKTeX/fonts/type1/urw/times/utmb8a.pfb>
+<D:/Program Files(x86)/CTEX/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><D:/Progra
+m Files(x86)/CTEX/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><D:/Program Files(x86
+)/CTEX/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on "The Communication Performance of BCDC Data Center Network.pd
+f" (7 pages, 557694 bytes).
+PDF statistics:
+ 571 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+
