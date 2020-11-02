@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{color}
+\usepackage{cite}
+%两图并排，需要宏包
+\usepackage{subfigure}
+\newtheorem{dfn}{Definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem*{prof}{Proof}
+\newtheorem{prop}{Property}
+\geometry{left=2.0cm,right=2.0cm,top=2.5cm,bottom=2.5cm}
+%要定义u_i,上划线(u)_i
+%N(u)也要定义一下
+%V(u)要定义
+%构成一个结构是用form,construct,还是constitute
+
+\newcommand{\comment}[2]{\textcolor{red}{#1:#2}}
+
+\begin{document}
+%\title{\textbf{Structure connectivity and substructure connectivity of  the Augmented Cube}}
+
+\begin{center}
+\Large\bf The 3-extra connectivity of Augmented cubes\\
+\vspace{0.5cm}
+  \large
+     Shuangxiang Kan$^1$, Jianxi Fan$^{1*}$, Baolei Cheng$^1$, Xi Wang$^2$, Jingya Zhou$^1$   \\
+    $^1$School of Computer Science and Technology, Soochow University, Suzhou 215006, China\\
+    $^2$School of Software and Services Outsourcing, Suzhou Institute of Industrial Technology, Suzhou 215004, China\\
+    $^*$Corresponding author: jxfan@suda.edu.cn\\
+\end{center}
+
+%\author{\textbf{shuangxiang kan}}
+\begin{center}
+\textbf{Abstract}
+\end{center}
+
+\textbf{Keywords:} structure connectivity; substructure connectivity; fault-tolerant ability; augmented cube; interconnection network
+\section{Introduction}
+Given a graph $G$ and a non-negative integer $g$, if there is a set of vertices in the graph $G$ such that the graph $G$ is disconnected after the vertex set is deleted and the number of vertices of each component is greater than $g$, then we call it a vertex cut. The minimum cardinality of all vertex cuts is referred to as the $g$-$extra$ $connectivity$ of graph $G$, denoted by $\kappa_g(G)$. $g$-extra connectivity is a generalization of the connectivity.
+\section{$H$-structure connectivity and $H$-substructure connectivity}
+\begin{thm}
+\label{connectivity}
+$\kappa(AQ_1)=1$, $\kappa(AQ_2)=3$, $\kappa(AQ_3)=4$, and for $n\geq 4$, $\kappa(AQ_n)=2n-1$.
+\end{thm}
+
+$\kappa_2(G)=3$
+
+\begin{lem}
+\label{2nodes}
+Let $x$, $y$ be two nodes in $AQ_n$, where $n\geq3$. Then
+$N_{AQ_n}(\{x,y\})\geq4n-8$ holds.
+\end{lem}
+
+
+\begin{lem}
+\label{3nodes}
+Let $x$, $y$, $z$ be three nodes in $AQ_n$, where $n\geq3$. Then
+$N_{AQ_n}(\{x,y,z\})\geq6n-17$ holds.
+\end{lem}
+
+\begin{lem}
+\label{2extra}
+$\kappa_1(AQ_n)=4n-8$ for $n\geq6$.
+\end{lem}
+
+\begin{lem}
+\label{3extra<=}
+$\kappa_2(AQ_n)<6n-17$ for $n\geq6$.
+\end{lem}
+
+\begin{proof}
+\end{proof}
+
+\begin{lem}
+\label{3extra<=}
+$\kappa_2(AQ_n)=6n-17$ for $n\geq6$.
+\end{lem}
+
+\begin{proof}
+Let $S$ be an arbitrary set of vertices in $AQ_n$ such that $|S| \leq 6n-18$ and there are no isolated vertices and $K_2$s in $AQ_n-S$. We will prove that $AQ_n-S$ is connected.
+Note that $AQ_n=L \oplus R$ where $L \cong AQ^0_{n-1}$ and $R \cong AQ^1_{n-1}$. For convenience, let $S_L=S \cap L$ and $S_R=S \cap R$. Without loss of generality, we may suppose that $|S_L| \geq |S_R|$. Then $|S_R|\leq 3n-9$.
+
+Then we have the following two cases:\\
+\textbf{Case 1}: $S_R$ is connected.
+
+We need to prove that any vertex in $L-S_L$ is connected via a path to a vertex in $R-S_R$. Let $u$ be any vertex in $L-S_L$, if its two neighbours
+$u_n$ and $\overline{u}_n$ don't belong to $R-S_R$. Then we are done. Otherwise, we have $\{u_n,\overline{u}_n\} \subset R-S_R$.
+
+Since $AQ_n-S$ does not contain isolated vertices, then there exists a neighbour $v$ of $u$, if $\{v_n,\overline{v}_n\}\not\subset R-S_R$, we are done. Otherwise, we have $\{v_n,\overline{v}_n\} \subset R-S_R$.
+
+Since $AQ_n-S$ does not contain $K_2$s, then there exists a neighbour $w$ of $u$ and $v$, if $\{w_n,\overline{w}_n\}\not\subset R-S_R$, we are done. Otherwise, we have $\{w_n,\overline{w}_n\} \subset R-S_R$. If $\{u,v,w\}$ is an isolated $K_3$, then by Lemma \ref{3nodes}, we have $N_{AQ_n}(\{u,v,w\})=6n-17$, a contradiction. So we assume $\{u,v,w\}$ is not an isolated $K_3$. Since $N_{AQ_n}(\{u,v,w\})=6n-17$ and $|S_R|\leq 3n-9$, and for any vertex $m$ in $L$, $m$ can connect $L$ via $m_n$ and $\overline{m}_n$. Thus, for any vertex $u$ in $L-S_L$, we can get a path $\{u,y,z\}$ where $y \in N_{L}(u,v,w)$ and $z \in \{y_n,\overline{y}_n\}$ and $z \in R-S_R$;
+%if there exists a neighbour $y$ of $u$, $v$ and $w$, then\\
+
+\textbf{Case 2}: $S_R$ is disconnected.
+
+And there is an isolated vertex $x$ in $R-S_R$ since $|S_R|\leq 3n-9$ and $\kappa(AQ_{n-1})=2n-3$ and $\kappa_1(AQ_{n-1})=4n-12$.
+
+Since $AQ_n-S$ does not contain isolated vertices and $K_2$s, then there exists a $K_2=\{v,w\}$ that $\{v,w\} \subset L-S_L$ and $u$ connects $\{v,w\}$. Since $u$ is an isolated vertex in $R-S_R$, then $S_L<=6n-18-(2n-3)=4n-15$. And by Lemma \ref{2nodes}, $N_{AQ^0_n}(v,w)>=4n-12$, there there is a vertex $y \notin L-S_L$ and $y \in N_{L-S_L}\{v,w\}$. Then by Lemma \ref{3nodes}, we have $N_{L-S_L}\{v,w,y\}>=6n-23 > 4n-15$ for $n \geq 6$. Then according to the definition of $AQ_n$ and similar to Case 1,
+
+\end{proof}
+
+
+
+\section{Conclusions}
+conclusion
+
+\section*{Acknowledgment}
+acknowledgement
+\setcounter{tocdepth}{1}
+\begin{thebibliography}{20}
+
+\bibitem{LvY2017}
+Y. Lv, C.-K. Lin, J. Fan, Hamiltonian cycle and path embeddings in $k$-ary $n$-cubes based on structure faults, The Computer Journal 60(2) (2017) 159-179.
+
+\end{thebibliography}
+
+\end{document}
