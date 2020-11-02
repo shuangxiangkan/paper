@@ -1,0 +1,1860 @@
+\documentclass[12pt]{article}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{color}
+\usepackage{cite}
+%两图并排，需要宏包
+\usepackage{subfigure}
+\newtheorem{dfn}{Definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem*{prof}{Proof}
+\newtheorem{prop}{Property}
+\geometry{left=2.0cm,right=2.0cm,top=2.5cm,bottom=2.5cm}
+%要定义u_i,上划线(u)_i
+%N(u)也要定义一下
+%V(u)要定义
+%构成一个结构是用form,construct,还是constitute
+
+\newcommand{\comment}[2]{\textcolor{red}{#1:#2}}
+
+\begin{document}
+%\title{\textbf{Structure connectivity and substructure connectivity of  the Augmented Cube}}
+
+\begin{center}
+\Large\bf Structure fault-tolerance of the augmented cube\\
+\vspace{0.5cm}
+  \large
+     Shuangxiang Kan$^1$, Jianxi Fan$^{1*}$, Baolei Cheng$^1$, Xi Wang$^2$, Jingya Zhou$^1$   \\
+    $^1$School of Computer Science and Technology, Soochow University, Suzhou 215006, China\\
+    $^2$School of Software and Services Outsourcing, Suzhou Institute of Industrial Technology, Suzhou 215004, China\\
+    $^*$Corresponding author: jxfan@suda.edu.cn\\
+\end{center}
+
+%\author{\textbf{shuangxiang kan}}
+\begin{center}
+\textbf{Abstract}
+\end{center}
+%The augmented cube, denoted by $AQ_n$, is a variant of the hypercube. It retains many favorable properties of the hypercube and possesses several embeddable properties that the hypercube and its other variations do not possess, such as pancyclic. The connectivity of a graph is one of the most important parameters to analyze the reliability of a network. Structure  and substructure connectivity  are the two novel generalization of the connectivity, which provide a  new way to evaluate the reliability and fault-tolerance of a network. In this paper, we investigate the structure connectivity and substructure connectivity of the  augmented cube. Let $G$ be a connected graph and $H$ be a certain connected subgraph of $G$. The $H$-structure connectivity $\kappa(AQ_n,H)$(respectively. $H$-substructure connectivity $\kappa^s(AQ_n,H)$) of a graph, is the minimum cardinality of a set of connected subgraphs $F$, such that every element in the set is isomorphic to $H$(respectively. the subgraph of $H$) and $F's$ removal will disconnect $G$.  In this paper,  $\kappa(AQ_n,H)$ and $\kappa^s(AQ_n,H)$ for $H\in\{K_{1,M},P_L,C_N\}$, where $1 \leq M \leq 6,1 \leq L \leq 2n-1$ and $3 \leq N \leq 2n-1$, is established.\\\\
+
+The augmented cube, denoted by $AQ_n$, is an important variant of the hypercube. It retains many favorable properties of the hypercube and possesses several embeddable properties that the hypercube and its other variations do not possess.
+Connectivity is one of the most important indicators used to evaluate a network's fault tolerance performance. Structure  and substructure connectivity  are the two novel generalizations of the connectivity, which provide a  new way to evaluate fault-tolerant ability of a network. In this paper, the structure connectivity and substructure connectivity of the  augmented cube for $H\in\{K_{1,M},P_L,C_N\}$ is investigated, where $1 \leq M \leq 6,1 \leq L \leq 2n-1$ and $3 \leq N \leq 2n-1$.\\\\
+\textbf{Keywords:} structure connectivity; substructure connectivity; fault-tolerant ability; augmented cube; interconnection network
+\section{Introduction}
+%connectivity 要斜体吗？
+%到底是用node还是vertex?
+%和一个节点相连使用incident to 还是 adjacent to
+%是g-extraconnectivity还是g-extra connectivity
+
+Fault-tolerant ability is a very important aspect for evaluating the performance of an interconnection network. An interconnection network with good fault-tolerant ability can run well and achieve ideal results even if some parts of the network fail or are damaged. Therefore, we hope the fault-tolerant ability of an interconnection network can be assessed by some indicators. Connectivity is one of the most important indicators we use to evaluate a network's fault-tolerant ability. A graph $G$ with $n$ vertices, after removing any $k-1$ vertices $(1\leq k < n)$, the resulting subgraph is still connected. After removing some $k$ vertices, the graph $G$ becomes a disconnected graph or a trivial graph. Then $G$ is a $k$-connected graph, and $k$ is called the $connectivity$ of graph $G$, denoted by $\kappa(G)$. Generally, the larger the connectivity of a graph, the more stable the network it represents. Although the connectivity can correctly reflect the fault-tolerant performance of the system, it has an obvious drawback. That is, it assumes that all vertices adjacent to the same vertex will become faulty at the same time, and the probability of this case happening in real environment is very low. Hence, it does not accurately reflect the robust performance of large-scale networks. The conditional connectivity proposed by Harary\cite{Harary1983} overcomes this shortcoming by attaching some requirements to each component when the entire network becomes disconnected due to failure of some vertices. Then, F{\`{a}}brega et al.\cite{FABREGA199649} proposed the concept of $g$-extra connectivity. Given a graph $G$ and a non-negative integer $g$, if there is a set of vertices in the graph $G$ such that the graph $G$ is disconnected after the vertex set is deleted and the number of vertices of each component is greater than $g$, then we call it a vertex cut. The minimum cardinality of all vertex cuts is referred to as the $g$-$extra$ $connectivity$ of graph $G$, denoted by $\kappa_g(G)$. $g$-extra connectivity is a generalization of the superconnectivity. The $superconnectivity$ of a graph $G$ actually corresponds to $\kappa_1(G)$\cite{Ma2008,FABREGA199649}. More information on connectivity can be found in \cite{Latifi1994,YANG2009887,GuoLGuoX,HSIEH201263,YU201386,GuoLLeeCW,CHEN20071848,GuoLQinC,LinL2015,NING201765,WAN2009264,Yang2013,ZHANG2014374,Wang2018336,4335424,Wang201852,Boesch1984}.
+
+However, both the connectivity and the improved conditional connectivity discussed above are based on the assumption that a single vertex failure is an independent event. Under such connectivities, when any vertex in the network fails, there is no effect on the vertices that are directly connected to this vertex. However, in fact, when a vertex in the network becomes faulty, the probability of vertices around this vertex will becoming faulty is greatly increased, which may form a faulty structure centered on this faulty vertex.
+Therefore, Lin et al.\cite{Lin2016} proposed the concept of structure connectivity $\kappa(Q_n,H)$ and sub-structure connectivity $\kappa^s(Q_n,H)$ of the hypercube $Q_n$ in \cite{Lin2016} for $H\in\{K_1,K_{1,1},K_{1,2},K_{1,3},C_4\}$. They actually generalized the faulty element from a single faulty vertex to a faulty structure (substructure). More results on structure and substructure connectivity can be found in \cite{Sabir2018,Huazhong,Dong2018Structure,Lv2018,wang2019structure}.
+
+The augmented cube, proposed by Choudum and Sunitha\cite{Choudum2002}, as an important variant of the hypercube, not only retains some of the superior properties of the hypercube, but also has many properties that are not available in hypercubes and other variants\cite{Hsu2005,Ma2007Panconnectivity}. For example, the connectivity of the augmented cube is $2n-1$, which is almost twice that of a hypercube, This means that the fault tolerance ability of the augmented cube is somewhat higher than that of the hypercube. In this paper, we focus on the structure and substructure connectivity of augmented cube. We establish $H$-structure and $H$-substructure connectivity of $AQ_n$ for $H\in\{K_{1,M},P_L,C_N\}$(shown in Figure \ref{K_1_M_P_Q_C_N}), respectively, where $1 \leq M \leq 6,1 \leq L \leq 2n-1$, and $3 \leq N \leq 2n-1$.
+\begin{figure}
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=0.4]{K_1_M_P_L_C_N.eps}\\
+  \caption{$K_{1,M},P_L$ and $C_N$}\label{K_1_M_P_Q_C_N}
+\end{figure}
+
+%It is well-known that hypercube is one of the most popular multiprocessor systems for parallel computer and communication systems. As an improvement of the hypercube, the augmented cube, proposed by Choudum and Sunitha\cite{Choudum2002}, not only retains many of the favorable properties of hypercube but also possesses some properties better than hypercube. For example, maximum connectivity
+%(degree = connectivity $=2n - 1$), best possible wide diameter ($=\lceil\frac{n}{2}\rceil+1=$ diameter + 1), and several embeddable properties which are not shared by hypercube and its other variations. In this paper, we focus on the structure and substructure connectivity of augmented cube. We establish $H$-structure and $H$-substructure connectivity of $AQ_n$ for $H\in\{K_{1,M},P_L,C_N\}$(shown in Figure \ref{K_1_M_P_Q_C_N}), respectively, where $1 \leq M \leq 6,1 \leq L \leq 2n-1$, and $3 \leq N \leq 2n-1$.
+%\begin{figure}
+%  \centering
+%  % Requires \usepackage{graphicx}
+%  \includegraphics[scale=0.4]{K_1_M_P_L_C_N.eps}\\
+%  \caption{$K_{1,M},P_L$ and $C_N$}\label{K_1_M_P_Q_C_N}
+%\end{figure}
+
+The rest of the paper is structured as follows. In Section 2, the definition of the augmented cube and some useful properties of it are presented. Then, Section 3 presents the main results on $\kappa(AQ_n,H)$ and $\kappa^s(AQ_n,H)$ of augmented cube for each $H\in\{K_{1,M},P_L,C_N\}$ in this paper. Conclusions are presented in Section 4.
+
+
+\section{Preliminaries}
+In order to better study the nature of the interconnection network, we generally model the interconnection network as an undirected graph, where each vertex in the graph represents a server, and each edge in the graph represents a communication link connecting two servers. A graph can be defined as a binary group: $G = (V(G), E(G))$, where: $(1)$ $V(G)$ is a finite and nonempty set of vertices. $(2)$ $E(G)$ is a finite set of edges connecting two different vertices (vertex pairs) in $V(G)$. In this paper, all graphs are referred to simple graphs. We use $N(u)$ to denote all vertices adjacent to the same vertex $u$ for $u\in V(G)$.
+
+For graphs $G$ and $H$, if $V(H)\subseteq V(G)$ and $E(H) \subseteq E(G)$, then $H$ is called the subgraph of $G$, $G$ is called the supergraph of $H$. If $H$ is a subgraph of $G$ with $V(H)=V(G)$, then $H$ is called the spanning subgraph of $G$, and $G$ is called the spanning supergraph of $H$. For the non-empty vertex subset $V' \in V(G)$ of graph $G$, if $G$'s subgraph $H$ has $V'$ as its vertex set, and the two end vertices of each edge of $H$ lie in $V'$, then subgraph $H$ is called the induced subgraph of $G$. Two graphs $G$ and $H$ are isomorphic if there exists a bijection $f:V(G) \rightarrow V(H)$ such that $(u,v) \in E(G)$ if and only if $(f(u),f(v))\in E(H)$. Let $H$ be a subgraph in graph $G$ and $F$ be a set of elements and each element is a vertex subset of graph $G$. Let $W(F)=\cup_{s \in F}s$. If the set $F$ satisfies that $G-W(F)$ is a disconnected graph or a trivial graph and the induced subgraph of each element in $F$ is isomorphic to one of the spanning supergraphs of $H$, then $F$ is called a $H$-$structure$ $cut$ of $G$. The $H$-$structure$ $connectivity$ of graph $G$, denoted by $\kappa(G,H)$, is the minimum cardinality of all $H$-structure cuts of $G$. If the induced subgraph of each element in $F$ is isomorphic to one of the spanning supergraphs of a subgraph of $H$, then $F$ is called a $H$-$substructure$ $cut$ of $G$. The $H$-$substructure$ $connectivity$ of graph $G$, denoted by $\kappa^s(G,H)$, is the minimum cardinality of all $H$-substructure cuts of $G$. If $H$ is just an isolated vertex. Then $H$-structure connectivity and $H$-substructure connectivity are exactly the traditional connectivity.
+
+
+
+%Letting $F(G)$ be a set of elements and each element is a vertex subset of graph $G$, we define $V(F(G))=\cup_{\alpha \in F(G)} \alpha$. If $G-V(F(G))$ is a disconnected graph or a trivial graph, then $F(G)$ is called a $structure$ $cut$ of graph $G$. Let $H$ be a connected subgraph of graph $G$. If the induced subgraph of each element in $F(G)$ is isomorphic to a spanning supergraph of $H$, then $F(G)$ is an $H$-$structure$ $cut$ of graph $G$. The $H$-$structure$ $connectivity$ of graph $G$, denoted by $\kappa(G,H)$, is defined as the minimum cardinality (number of elements) of all $H$-structure cuts of graph $G$. If the induced subgraph of each element in $F(G)$ is isomorphic to a spanning supergraph of a connected subgraph of $H$, then $F(G)$ is called an $H$-$substructure$ $cut$ of graph $G$. The $H$-$substructure$ $connectivity$ of graph $G$, denoted by $\kappa^s(G,H)$, is defined as the minimum cardinality of all $H$-substructure cuts of graph $G$. The complete graph with $n$ vertices is denoted by $K_n$ and $K_1$ is just an isolated vertex. Thus, $K_1$-structure connectivity and $K_1$-substructure connectivity are exactly the traditional connectivity.
+
+If the set of vertices of a graph $G$ can be divided into two disjoint subsets $X$ and $Y$, where $|X|=m$ and $|Y|=n$, such that any vertex in $X$ has a unique edge with each vertex in $Y$ and there is no edge has two end vertices in the same subset. Then $G$ is called a complete bipartite graph, denoted by $K_{m,n}$. We use $K_1$ to represent an independent vertex. A $path$ $P_k=\langle v_1,v_2,\ldots,v_k \rangle$ is a finite non-empty sequence with different vertices such that $(v_i,v_{i+1}) \in E(G)$ for $1\leq i\leq k-1$. A $cycle$ $C_k=\langle v_1,v_2,\ldots,v_k \rangle$ for $k \geq 3$ is a path where $(v_1,v_k) \in E(G)$.
+
+%Generally, an interconnection network can be modeled by an undirected graph $G=(V(G),E(G))$, where $V(G)$ represents a set of all vertices of $G$ and $E(G)$ represents a set of all edges of $G$. Each vertex in $V(G)$ corresponds to a processor and each edge $(u,v)$ in $E(G)$ corresponds to a communication link between processor $u$ and processor $v$. The neighborhood of a vertex $u$ in $G$ is the set of vertices adjacent to $u$, denoted by $N(u)$.
+%% 下面这个定义在后面的论文中用到了吗？
+%%Similarly, for  $T\subset V(G)$, the neighborhood of $T$ in $G$ is defined as $N(T)=\cup_{v\in T}N(v)-T$.
+%%下面是不是要在具体说一下K_{1,M}的定义
+%%下面这个定义是引用维基百科的，改了一点，算不算抄袭
+%
+%Letting $F(G)$ be a set of elements and each element is a vertex subset of graph $G$, we define $V(F(G))=\cup_{\alpha \in F(G)} \alpha$. If $G-V(F(G))$ is a disconnected graph or a trivial graph, then $F(G)$ is called a $structure$ $cut$ of graph $G$. Let $H$ be a connected subgraph of graph $G$. If the induced subgraph of each element in $F(G)$ is isomorphic to a spanning supergraph of $H$, then $F(G)$ is an $H$-$structure$ $cut$ of graph $G$. The $H$-$structure$ $connectivity$ of graph $G$, denoted by $\kappa(G,H)$, is defined as the minimum cardinality (number of elements) of all $H$-structure cuts of graph $G$. If the induced subgraph of each element in $F(G)$ is isomorphic to a spanning supergraph of a connected subgraph of $H$, then $F(G)$ is called an $H$-$substructure$ $cut$ of graph $G$. The $H$-$substructure$ $connectivity$ of graph $G$, denoted by $\kappa^s(G,H)$, is defined as the minimum cardinality of all $H$-substructure cuts of graph $G$.
+% %Let $G$ be a connected graph and $H$ be a certain connected subgraph of $G$. A set $F$ of connected subgraphs of $G$ is a subgraph-cut of $G$ if $G-V(F)$ is disconnected or trivial. The $H$-structure connectivity $\kappa(AQ_n,H)$(respectively. $H$-substructure connectivity $\kappa^s(AQ_n,H)$) of a graph, is the minimum cardinality of all $H$-structure cuts(respectively. $H$-substructure cuts) of $G$, such that every element in the set is isomorphic to $H$(respectively. the subgraph of $H$) and $F's$ removal will disconnect $G$.
+% The complete graph on $n$ vertices is denoted by $K_n$ and $K_1$ is just an isolated vertex, thus $K_1$-structure connectivity and $K_1$-substructure connectivity are exactly the classical vertex connectivity.
+%
+%A $complete$ $bipartite$ $graph$ is a graph whose vertices can be partitioned into two disjoint and independent subsets $U$ and $V$  such that for every two vertices $u\in U$ and $v\in V$, $(u,v)$ is an edge in $E$ and no edge has both endpoints in the same subset. A complete bipartite graph with partitions of size $|U|=m$ and $|V|=n$, is denoted by $K_{m,n}$. For any $n$, $K_{1,n}$ is called a star.
+%%上面这句话有没有问题？
+%%A complete bipartite graph $K_{m,n}$ is a graph comprised of two partite sets of vertices of sizes $m$ and $n$ respectively, such that two vertices are adjacent if and only if they are in different partite sets.
+%%A $path$ $P_k=\langle v_1,v_2,\ldots,v_k \rangle$ is a finite sequence of
+%A $path$ $P_k=\langle v_1,v_2,\ldots,v_k \rangle$ is a finite non-empty sequence with different vertices such that $(v_i,v_{i+1}) \in E(G)$ for $1\leq i\leq n-1$ and the length of $P_k$ is $k-1$.
+%%A path $P_k=\langle v_1,v_2,\ldots,v_k \rangle$ is  a sequence of distinct vertices such that any two consecutive vertices are adjacent.
+%A $cycle$ $C_k=\langle v_1,v_2,\ldots,v_k \rangle$ for $k \geq 3$ is a path where $(v_1,v_k) \in E(G)$.
+
+In the following, we shall introduce the definition of the augmented cube and some properties of it.
+\begin{dfn}\cite{Choudum2002}
+\label{definition1}
+%Let an integer $n \geq 1$, an $n$-dimensional augmented cube $AQ_n$ consists of $2^n$ vertices, each vertex in $AQ_n$ is labeled by a unique n-bit binary string $u_n u_{n-1}\ldots u_2 u_1$, where $u_i \in \{0,1\}$ for $i=1,2,\ldots,n$. The augmented cube $AQ_1$ is a complete graph $K_2$ with two vertices 0 and 1. For $n>1$, an $n$-dimensional augmented cube $AQ_n$ can be constructed from two copies of $(n-1)$-dimensional augmented cube $AQ_{n-1}$, denoted by $AQ^{0}_{n-1}$ and $AQ^{1}_{n-1}$, and adding $2 \times 2^{n-1} $ edges between them. A vertex $u=\{0a_{n-1}\ldots a_2 a_1 \mid a_i=0$ or $1, 1\leq i \leq n-1\}$ of $AQ^{0}_{n-1}$ is adjacent to a vertex $v=\{1b_{n-1}\ldots b_2 b_1 \mid b_i=0$ or $1, 1\leq i \leq n-1\}$ of $AQ^{1}_{n-1}$ if and only if, for $1 \leq i \leq n-1$, either (1) $a_i=b_i$, in this case, $(u,v)$ is called a hypercube edge, or (2)
+%$a_i=\bar{b}_i$, in this case, $(u,v)$ is called a complement edge.
+Let an integer $n \geq 1$, an $n$-dimensional augmented cube $AQ_n$ consists of $2^n$ vertices, each vertex in $AQ_n$ is labeled by a unique $n$-bit binary string $u_nu_{n-1} \ldots u_2 u_1$, where $u_i \in \{0,1\}$ for $i=1,2,...,n$. The augmented cube $AQ_1$ is a complete graph $K_2$ with two vertices 0 and 1. For $n\geq2$, $AQ_n$ is build from two disjoint copies of $AQ_{n-1}$ according to the following steps: Let $0AQ_{n-1}$ denote the graph obtained from one copy of $AQ_{n-1}$ by prefixing the label of each vertex with 0. Let $1AQ_{n-1}$ denote the graph obtained from the other copy of $AQ_{n-1}$ by prefixing the label of each vertex with 1. A vertex $u=0a_{n-1}\ldots a_2a_1$ of $0AQ_{n-1}$ is adjacent to a vertex $v=1b_{n-1}\ldots b_2b_1$ of $1AQ_{n-1}$ if and only if, for $i=1,\ldots,n-1$ either (1) $a_i=b_i$, in this case, $(u,v)$ is called a hypercube edge or (2) $a_i=\overline{b}_i$, in this case, $(u,v)$ is called a complement edge.
+
+\end{dfn}
+
+%\begin{dfn}\cite{Choudum2002}
+%Let n $\geq$ 1 be an integer. The augmented cube $AQ_n$ of dimension n has $2^{n}$ vertices, each labeled by an n-bit binary string $a_{n}a_{n-1} \ldots a_{1}$. We define $AQ_1$ = $K_{2}$. For n $\geq$ 2, $AQ_n$ is obtained by taking two copies of the augmented cube $AQ_{n-1}$, denoted by $AQ^{0}_{n-1}$ and $AQ^{1}_{n-1}$ and adding 2 $\times 2^{n-1}$ edges between the two as follows:\\
+%Let $V(AQ^{0}_{n-1}) = \{0a_{n-1}a_{n-2} \ldots a_{1} : a_{i}$ = 0  or 1\} and $V(AQ^{1}_{n-1}) = \{1b_{n-1}b_{n-2} \ldots b_{1} : b_{i}$ = 0 or 1\}. A vertex A = $0a_{n-1}a_{n-2} \ldots a_{1}$ of $AQ^{0}_{n-1}$ is joined to a vertex B = $1b_{n-1}b_{n-2} \ldots b_{1}$ of $AQ^{1}_{n-1}$ iff for every i, 1 $\leq$ i $\leq n-1$ , either\\\\
+%(i) $a_i = b_i$; in this case, AB is called a hypercube edge, or\\
+%(ii)$a_i = \bar{b}_i$; in this case, AB is called a complement edge.
+%\end{dfn}
+
+
+%According to the definition above, we write this recursive construction of $AQ_n$ symbolically as $AQ_n=AQ^0_{n-1}\oplus AQ^1_{n-1}$,  $AQ^i_{n-1}$ is an $n-1$ dimensional subgraph of $AQ_n$ where $V(AQ_{n-1}^i)=\{a\mid a=a_{n}a_{n-1}\ldots a_1\in V(AQ_n)$ and $ a_{n}=i\}$ for each $i\in\{0,1\}$.
+
+For any vertex $u = a_{n}a_{n-1}\ldots a_1$ in augmented cube. we use $u^i$ (respectively, $\bar{u}^i$) to denote the binary string $a_{n}\ldots a_{i+1}\bar{a}_{i}a_{i-1}\ldots a_1$ (respectively, $a_n\ldots a_{i+1}\bar{a}_i\bar{a}_{i-1}\ldots\bar{a}_1$).
+%, Which Differs With $U$ In The $I$Th Bit
+%%下面这个position用不用复数
+%Position(Respectively, Differs With $U$ From The First To The $I$Th Bit Position).
+It is clear that $u^1$ = $\bar{u}^1$, we may mix these two notations whenever it is convenient. For example, if $u=011001$, then $u^1=\bar{u}^1=011000$, $u^2=011011$, $u^4=010001$, $\bar{u}^4=010110$, $(u^4)^2=010011$, $(\bar{u}^4)^3=010010$, $(\overline{u^4})^2=010010$, and $(\overline{\bar{u}^4})^2=010101$.
+
+The definition of augmented cube above is recursive. As with hypercube or other graphs, augmented cube also has several definitions. An alternative definition of $AQ_n$ is as follows:
+% i=1时，hypercube edge和complement edge 重合的部分应该怎么说
+\begin{dfn}\cite{Choudum2002}
+\label{definition2}
+An $n$-dimensional augmented cube with $n\geq1$ contains $2^n$ vertices, each vertex of which is labeled by a unique $n$-bit binary string $u_n u_{n-1}\ldots u_2 u_1$, where $u_i \in \{0,1\}$ for $i=1,2,\ldots,n$. For any two vertices $a=a_n a_{n-1}\ldots a_2 a_1$ and $b=b_n b_{n-1}\ldots b_2 b_1$, $a$ is adjacent to $b$, if and only if, there exists an integer k, $1\leq k\leq n$, such that either (1) $a_k=\bar{b}_k$ and $a_i=b_i$ for $1 \leq i \leq n$, $i \neq k$ or (2) $a_i=\bar{b}_i$ for $1 \leq i \leq k$ and $a_i=b_i$ for $k+1 \leq i \leq n$.\\
+%Let G be the simple graph with vertex set V(G) = \{$a_{n}a_{n-1} \ldots a_1 : a_i $= 0 or 1\}, where two vertices A = $a_{n}a_{n-1} \ldots a_1$ and B = $b_{n}b_{n-1} \ldots b_1$ are joined iff there exists an integer l, 1 $\leq$ l $\leq$ n such that either\\\\
+%(1)$a_l$ = $\bar{b}_l$ and $a_i$ = $b_i$, for every i, i $\neq$ l, or\\
+%(2)$a_i$ = $b_i$ for  $l+1 \leq$ i $\leq$ n and $a_i$ = $\bar{b}_i$ for 1 $\leq$ i $\leq$ l.\\\\\\
+%Then, $G = AQ_n$
+\end{dfn}
+\begin{figure}[ht]
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=0.4]{AQ_1_2_3.eps}\\
+  \caption{Augmented cubes $AQ_1$,$AQ_2$ and $AQ_3$  of dimension 1, 2, and 3}\label{AQ_1_2_3}
+\end{figure}
+The augmented cubes $AQ_1,AQ_2$, and $AQ_3$ are shown in Figure \ref{AQ_1_2_3}.\\
+\indent{Then, we give some properties of $AQ_n$.}
+
+\begin{thm}\cite{Choudum2002}
+$\kappa(AQ_1) = 1, \kappa(AQ_2) = 3, \kappa(AQ_3) = 4,$ and for n $\geq$ 4, $\kappa(AQ_n) = 2n-1$.
+\end{thm}
+
+%K_1的结构连通度和子结构连通度
+According to Theorem 1, we have the following result.
+\begin{thm}
+For n $\geq$ 4, $\kappa(AQ_n,K_1) = \kappa^s(AQ_n,K_1)=2n-1$.
+\end{thm}
+
+%AQ_n的连通度
+\begin{lem}
+\label{1_extraconnectivity}
+\cite{Ma2008}
+For n $\geq$ 6, $\kappa_1(AQ_n)= 4n - 8$.
+\end{lem}
+
+%如果两个节点是hypercube edge,它们的共同的相邻节点数
+\begin{prop}
+\cite{Ma2008}
+\label{hypercube_edge}
+If $(u,u^i)$ is a hypercube edge of dimension $i$ $(1 \leq i\leq n)$, then\\
+
+\[
+{N_{AQ_n}(u)}\cap {N_{AQ_n}(u^i)}=\left\{
+             \begin{array}{lcr}
+             \{\bar{u}^i,\bar{u}^{i-1}\} & &2\leq i\leq n,\\
+             \{\bar{u}^2,u^2\} & &i=1.
+             \end{array}
+\right.
+\]
+That is, $u$ and $u^i$ have exactly two common neighbors in $AQ_n$ and $|{N_{AQ_n}}(\{u,u^i\})|= 4n-6$.
+\end{prop}
+
+%如果两个节点是complement edge,它们的共同的相邻节点数
+\begin{prop}
+\cite{Ma2008}
+\label{complement_edge}
+If (u,$\bar{u}^i$) is a complement edge of dimension i $(2\leq i\leq n)$,then\\
+
+\[
+{N_{AQ_n}(u)}\cap {N_{AQ_n}(\bar{u}^i)}=\left\{
+             \begin{array}{lcr}
+             \{\bar{u}^{i-1},u^i,u^{i+1},\bar{u}^{i+1}\} & &2\leq i\leq n-1,\\
+             \{\bar{u}^{n-1},u^n\} & &i=n.
+             \end{array}
+\right.
+\]
+That is, $u$ and $\bar{u}^i$ have exactly four common neighbors in $AQ_n$ for $2\leq i\leq n-1$ and $|{N_{AQ_n}}(\{u,\bar{u}^i\})|=4n-8$. Similarly, $u$ and $\bar{u}^n$ have exactly two common neighbors in $AQ_n$ and $|{N_{AQ_n}}(\{u,\bar{u}^n\})|=4n-6$.
+\end{prop}
+
+%AQ_n中任意两个节点最多有多少个共同节点
+\begin{prop}
+\cite{Ma2008}
+\label{common_verticles}
+Any two vertices in $AQ_n$ have at most four common neighbors for n $\geq$ 3.
+\end{prop}
+
+%在其中一个AQ_n-1中的任意两个节点在另一个AQ_n-1 中有两个共同节点的条件
+%这个地方的L和W还没有定义
+%\begin{prop}
+%\cite{DBLP:journals/ipl/MaLX08}
+%\label{neighbor_L_R}
+%If two vertices $u$ and $w$ in $AQ^0_{n-1}$(respectively, $AQ^1_{n-1}$) have common neighbors in $AQ^1_{n-1}$(respectively, $AQ^0_{n-1}$), then $w=\bar{u}^{n-1}$ and they have exactly two common neighbors $u^n$ and $\bar{u}^n$ in $AQ^1_{n-1}$.
+%\end{prop}
+According to the Definition \ref{definition1} , we can easily obtain the following properties of augmented cube.
+\begin{prop}
+\label{two_hypercube_edges}
+If $(u,u^i)$ and $(u,u^j)$ are two hypercube edges of dimensions $i$ and $j$ $(1 \leq i \neq j\leq n)$. Without loss of generality, we set $i<j$, then
+
+\[
+{N_{AQ_n}(u^i)}\cap {N_{AQ_n}(u^j)}=\left\{
+             \begin{array}{lcr}
+             \{u,(u^i)^j,\bar{u}^i,({\bar{u}^j})^i\}  & & j=i+1\textnormal{ and }i > 1,\\
+             \{u,(u^i)^j\}  & & j>i+1,\\
+             \{u,(u^1)^2\}  & & i=1\textnormal{ and }j=2.
+             \end{array}
+\right.
+\]
+\end{prop}
+
+\begin{prop}
+\label{two_complement_edges}
+If $(u,\bar{u}^i)$ and $(u,\bar{u}^j)$ are two complement edges of dimensions $i$ and $j$ $(1 \leq i \neq j\leq n)$. Without loss of generality, we set $i<j$, then
+
+\[
+{N_{AQ_n}(\bar{u}^i)}\cap {N_{AQ_n}(\bar{u}^j)}=\left\{
+             \begin{array}{lcr}
+             \{u,\bar{u}^{i+1},(u^j)^{j-1},(\bar{u}^j)^{j-1}\}  & & j=i+2  ,\\
+             \{u,(\overline{\bar{u}^j})^i\}  & & j=i+1 \quad\textnormal{or}\quad j>i+2.
+             \end{array}
+\right.
+\]
+\end{prop}
+
+\begin{prop}
+\label{hypercube_edge_and_complement_edge}
+If $(u,u^i)$ is a hypercube edge of dimension $i$ and $(u,\bar{u}^j)$ is a complement edge of dimension $j$ $(1 \leq i,j\leq n)$, then
+
+\[
+{N_{AQ_n}(u^i)}\cap {N_{AQ_n}(\bar{u}^j)}=\left\{
+             \begin{array}{lcr}
+             \{u,(u^i)^{i-1},(\bar{u}^i)^{i-1},\bar{u}^{i-1}\}  & & i=j\textnormal{ and }i>1,\\
+
+             \{u,\bar{u}^i,(\bar{u}^j)^{i+1},({u}^i)^{i+1}\}  & & i=j+1\textnormal{ and }i<n,\\
+             \{u,\bar{u}^i\}  & & i=n\textnormal{ and }j=n-1,\\
+             \{u,(u^i)^{i-1},(\bar{u}^i)^{i-1},\bar{u}^{i-1}\}  & & \quad i=j+2,\\
+             \{u,(\bar{u}^j)^i\}  & & |i-j|>2,\\
+             \{u,(u^j)^i,(\bar{u}^j)^i,\bar{u}^i\}  & & j=i+1\textnormal{ and }i>1,\\
+             \{u,(u)^2\}  & & i = 1\textnormal{ and }j = 2,\\
+             \{u,(\bar{u}^j)^i\}  & & j=i+2\textnormal{ and }i>1,\\
+             \{u,\bar{u}^2,(\bar{u}^3)^1,(u^1)^3\}  & & i = 1\textnormal{ and }j = 3.
+             \end{array}
+\right.
+\]
+\end{prop}
+
+
+\section{$H$-structure connectivity and $H$-substructure connectivity}
+In this section, we study the $H$-structure connectivity and $H$-substructure connectivity of $AQ_n$ for each $H\in$ $\{K_{1,M},P_{L},C_{N}\}$, where $1 \leq M \leq 6$, $1 \leq L \leq 2n-1$, and $3 \leq N \leq 2n-1$. Let $u$ be an arbitrary vertex in $AQ_n$. In order to make the representation of our proof more convenient, we introduce a set of tokens $v^{[1]},v^{[2]},\ldots,v^{[2n-1]}$, where $ v^{[1]},v^{[2]},\ldots,v^{[2n-1]}$ and all the adjacent vertices of $u$: $u^1,u^2,\bar{u}^{2},\ldots,u^{n},\bar{u}^{n}$ form a one-to-one correspondence.
+%这句话的表述有没有问题
+The correspondence of $u^j$ and $v^{[i]}$ is:
+$(1)$ if $i$ is even, then $j=\frac{i}{2}+1$ and $u^j=v^{[i]}$.
+$(2)$ if $i$ is odd, then $j=\lfloor\frac{i}{2}\rfloor+1$ and $\bar{u}^j=v^{[i]}$. The definition of $(v^{[i]})^l$ and $(\overline{v^{[i]}})^l$ is the same as that of $u^l$ and $\bar{u}^l$. For example, if $u=000000$ is a vertex of $AQ_6$, then $u^4=v^{[6]}=001000$,  $\bar{u}^5=v^{[9]}=011111, (v^{[6]})^2=001010$ and $(\overline{v^{[9]}})^3=011000$. In this paper, we may mix these two notations whenever it is convenient.
+
+\subsection{$\kappa(AQ_n,K_{1,M})$ \textnormal{and} $\kappa^s(AQ_n,K_{1,M})$}
+According to the definition of $AQ_n$, Property \ref{hypercube_edge}, and Property \ref{complement_edge}, if $u$ is an arbitrary vertex of $AQ_n$ and $(u,\bar{u}^i)$ is a complement edge of dimension $i$ $(2\leq i \leq n-1)$, then $N_{AQ_n}(u)\cap N_{AQ_n}(\bar{u}^i)=\{\bar{u}^{i-1},u^i,u^{i+1},\bar{u}^{i+1}\}$. The subgraph induced by $\{\bar{u}^i,\bar{u}^{i-1},u^i,u^{i+1}, \bar{u}^{i+1}\}$ $(2\leq i \leq n-1)$ is isomorphic to $K_{1,4}$. If $(u,\bar{u}^n)$ is a complement edge of dimension $n$, then $N_{AQ_n}(u)\cap N_{AQ_n}(\bar{u}^n)=\{\bar{u}^{n-1},u^n\}$ and the subgraph induced by $\{\bar{u}^n,\bar{u}^{n-1},u^n\}$ is isomorphic to $K_{1,2}$. Similarly, if $(u,u^i)$ is a hypercube edge of dimension $i$ $(1\leq i \leq n)$, then $N_{AQ_n}(u)\cap N_{AQ_n}(u^i)=\{\bar{u}^{i},\bar{u}^{i-1}\}(2\leq i \leq n)$ and $N_{AQ_n}(u)\cap N_{AQ_n}(u^1)=\{u^{2},\bar{u}^{2}\}$. The subgraph induced by $\{u^i,\bar{u}^i$,$\bar{u}^{i-1}\}(2\leq i \leq n)$ is isomorphic to $K_{1,2}$.\\
+
+Here, we will discuss $\kappa(AQ_n,K_{1,M})$ \textnormal{and} $\kappa^s(AQ_n,K_{1,M})$ for the cases of $1 \leq M \leq 3$ and $4 \leq M \leq 6$.
+\subsubsection{$1 \leq M \leq 3$}
+\begin{lem}
+\label{1<=M<=3(1)}
+For n $\geq$ 4 and $1 \leq M \leq 3$, $\kappa(AQ_n,K_{1,M})$ $\leq$ $\lceil\frac{2n-1}{1+M}\rceil$ and $\kappa^s(AQ_n,K_{1,M})$ $\leq$ $\lceil\frac{2n-1}{1+M}\rceil$.
+\end{lem}
+
+%\begin{figure}[ht]
+%  \centering
+%  % Requires \usepackage{graphicx}
+%  \includegraphics[scale=0.3]{K_1_1.eps}\quad\quad\quad
+%  \includegraphics[scale=0.3]{K_1_2.eps}\\
+%  \caption{A $K_{1,1}$-structure-cut in $AQ_5$ and a $K_{1,2}$-structure-cut in $AQ_6$}
+%  \label{K_1_1 and K_1_2}
+%\end{figure}
+
+
+\begin{figure}[htbp]
+    \centering
+    \subfigure[A $K_{1,1}$-structure-cut in $AQ_5$]{
+    \begin{minipage}{8cm}
+    \centering
+        \includegraphics[scale=0.3]{K_1_1.eps}
+    \end{minipage}
+    }
+    \subfigure[A $K_{1,2}$-structure-cut in $AQ_6$]{
+    \begin{minipage}{8cm}
+    \centering
+        \includegraphics[scale=0.3]{K_1_2.eps}
+    \end{minipage}
+    }
+    \caption{A $K_{1,1}$-structure-cut in $AQ_5$ and a $K_{1,2}$-structure-cut in $AQ_6$}
+    \label{K_1_1 and K_1_2}
+\end{figure}
+
+
+
+%乘号使用.，*，还是一个×
+\begin{proof}
+\normalfont
+{
+Let $u$ be an any vertex in $AQ_n$. In the following, we distinguish cases for the values of $M$ and $n$.
+
+\textbf{Case 1}. $M=1$. We set
+\begin{flushleft}
+$S_1=\{
+\{
+v^{[(M+1)i+1]},
+v^{[(M+1)i+2]}
+\}
+\mid 0 \leq i < \lfloor\frac{2n-1}{M+1}\rfloor\}$ and
+$S_2=\{\{
+v^{[2n-1]},
+(v^{[2n-1]})^1
+\}\}$.
+
+\end{flushleft}
+
+\textbf{Case 2}. $M=2$.
+
+\textbf{Case 2.1}. $n\equiv0$(mod 3). We set
+\begin{flushleft}
+$S_1=\{\{
+v^{[(M+1)i+1]},
+v^{[(M+1)i+2]},
+v^{[(M+1)i+3]}
+\}
+\mid 0 \leq i < \lfloor\frac{2n-1}{M+1}\rfloor\}$.
+
+\end{flushleft}
+
+\textbf{Case 2.2}. $n\equiv1$(mod 3). We set
+\begin{flushleft}
+$S_1=\{\{
+v^{[(M+1)i+1]},
+v^{[(M+1)i+2]},
+v^{[(M+1)i+3]}
+\}
+\mid 0 \leq i < \lfloor\frac{2n-1}{M+1}\rfloor\}$
+and $S_2=\{\{
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2
+\}\}$.
+
+\end{flushleft}
+
+\textbf{Case 2.3}. $n\equiv2$(mod 3). We set
+\begin{flushleft}
+$S_1=\{\{
+v^{[(M+1)i+1]},
+v^{[(M+1)i+2]},
+v^{[(M+1)i+3]}
+\}
+\mid 0 \leq i < \lfloor\frac{2n-1}{M+1}\rfloor\}$
+and
+$S_2=\{\{
+v^{[2n-2]},
+v^{[2n-1]},
+(v^{[2n-1]})^1
+\}\}$.
+
+\end{flushleft}
+
+\textbf{Case 3}. $M=3$.
+
+\textbf{Case 3.1}. $n\equiv1$(mod 4). We set
+\begin{flushleft}
+$S_1=\{\{
+v^{[(M+1)i+1]},
+v^{[(M+1)i+2]},
+v^{[(M+1)i+3]},
+v^{[(M+1)i+4]}
+\}
+\mid 0 \leq i < \lfloor\frac{2n-1}{M+1}\rfloor\}$
+and
+$S_2=\{\{
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(v^{[2n-1]})^3
+\}\}$.
+
+\end{flushleft}
+
+\textbf{Case 3.2}. $n\equiv3$(mod 4). We set
+\begin{flushleft}
+$S_1=\{\{
+v^{[(M+1)i+1]},
+v^{[(M+1)i+2]},
+v^{[(M+1)i+3]},
+v^{[(M+1)i+4]}
+\}
+\mid 0 \leq i < \lfloor\frac{2n-1}{M+1}\rfloor\}$
+and
+$S_2=\{\{
+v^{[2n-3]},
+v^{[2n-2]},
+v^{[2n-1]},
+(v^{[2n-1]})^1
+\}\}$.
+
+\end{flushleft}
+
+
+Suppose that $S=S_1$ when $M = 2$ and $n \equiv 0$ (mod 3) $(S=S_1 \cup S_2$, otherwise). Clearly, if $M=1$, the induced subgraph of each element in $S_1 \cup S_2$ is isomorphic to $K_{1,1}$; If $M=2$, vertex $v^{[(M+1)i+2]}$ is adjacent to vertices $v^{[(M+1)i+1]}$ and $v^{[(M+1)i+3]}$ for $0 \leq i < \lfloor\frac{2n-1}{M+1}\rfloor$, vertex $v^{[2n-1]}$  is adjacent to vertices $v^{[2n-2]}$, $(v^{[2n-1]})^1$, and $(v^{[2n-1]})^2$. Therefore, the subgraph induced by each element in $S$ is isomorphic to $K_{1,2}$; If $M=3$, vertex $v^{[(M+1)i+3]}$ is adjacent to vertices $v^{[(M+1)i+1]}$, $v^{[(M+1)i+2]}$, and $v^{[(M+1)i+4]}$  for $0 \leq i < \lfloor\frac{2n-1}{M+1}\rfloor$, vertex $v^{[2n-1]}$  is adjacent to vertices $v^{[2n-3]}, v^{[2n-2]},(v^{[2n-1]})^1$, $(v^{[2n-1]})^2$, and $(v^{[2n-1]})^3$. Thus, the subgraph induced by each element in $S$ is isomorphic to $K_{1,3}$. It is obvious that $|S|$ = $\lceil\frac{2n-1}{1+M}\rceil$. Let $W(S)=\cup_{f \in S}f$. Since $AQ_n-W(S)$ is disconnected and one component of it is \{$u$\}, $\kappa(AQ_n,K_{1,M})$ $\leq$ $\lceil\frac{2n-1}{1+M}\rceil$ and $\kappa^s(AQ_n,K_{1,M})$ $\leq$ $\lceil\frac{2n-1}{1+M}\rceil$.
+%之前解释过structure-cut吗？
+Figure \ref{K_1_1 and K_1_2} shows a $K_{1,1}$-structure-cut in $AQ_5$ and a $K_{1,2}$-structure-cut in $AQ_6$.
+}
+\end{proof}
+\begin{lem}
+\label{1<=M<=3(2)}
+For $n\geq4$ and $1 \leq M \leq 3$, $\kappa^s(AQ_n,K_{1,M})$ $\geq$ $\lceil\frac{2n-1}{1+M}\rceil$.
+\end{lem}
+
+%下面证明中的F是不是写成F^*会更好
+
+\begin{proof}
+\normalfont
+{
+Let $F_n^*$ be a set of connected subgraphs in $AQ_n$, every element in the set is isomorphic to $K_{1,M}$ with $|F_n^*|\leq \lceil\frac{2n-1}{1+M}\rceil-1$. Hence $|V(F_n^*)|\leq (1+M)\times(\lceil\frac{2n-1}{1+M}\rceil-1)< 2n-1$. Since $\kappa(AQ_n)= 2n-1$, $AQ_n-F_n^*$ is connected. The lemma holds.
+}
+\end{proof}
+%这个地方是不是可以使用标签\label和应用\ref
+Since $\kappa(Q_n,K_{1,M})\geq \kappa^s(Q_n,K_{1,M})$,  $\kappa(Q_n,K_{1,M})\geq \lceil\frac{2n-1}{1+M}\rceil$. By Lemma \ref{1<=M<=3(1)} and Lemma \ref{1<=M<=3(2)}, we have the following theorem.
+\begin{thm}
+For n $\geq$ 4 and $1 \leq M \leq 3$, $\kappa(AQ_n,K_{1,M})=\lceil\frac{2n-1}{1+M}\rceil$ and $\kappa^s(AQ_n,K_{1,M})=\lceil\frac{2n-1}{1+M}\rceil$.
+\end{thm}
+
+\subsubsection{$4 \leq M \leq 6$}
+
+\begin{lem}
+\label{4<=M<=6(1)}
+For $n \geq$ 6 and $4 \leq M \leq 6$, $\kappa(AQ_n,K_{1,M})$ $\leq$ $\lceil\frac{n-1}{2}\rceil$ and $\kappa^s(AQ_n,K_{1,M})$ $\leq$ $\lceil\frac{n-1}{2}\rceil$.
+\end{lem}
+\begin{proof}
+\normalfont
+{
+Let $u$ be an any vertex in $AQ_n$. In the following, we distinguish cases for the values of $M$ and $n$.
+
+\textbf{Case 1.} $M=4$.
+
+
+\textbf{Case 1.1.} $n$ is odd. We set
+\begin{flushleft}
+$S_1=\{\{v^{[1]},v^{[2]},v^{[3]},v^{[4]},v^{[5]}\}\}$ and
+
+$S_2=\{\{
+v^{[5+4i+1]},
+v^{[5+4i+2]},
+v^{[5+4i+3]},
+v^{[5+4i+4]},
+(v^{[5+4i+2]})^1
+\} \mid 0\leq i< \lfloor\frac{n-1}{2}\rfloor-1 $\}.
+
+\end{flushleft}
+
+\textbf{Case 1.2.} $n$ is even. We set
+
+\begin{flushleft}
+$S_1=\{\{v^{[1]},v^{[2]},v^{[3]},v^{[4]},v^{[5]}\}\}$,
+
+$S_2=\{\{
+v^{[5+4i+1]},
+v^{[5+4i+2]},
+v^{[5+4i+3]},
+v^{[5+4i+4]},
+(v^{[5+4i+2]})^1
+\} \mid 0\leq i< \lfloor\frac{n-1}{2}\rfloor-1 $\}, and\\
+
+$S_3=\{\{
+v^{[2n-2]},
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(v^{[2n-1]})^3
+\}$\}.\\
+
+\end{flushleft}
+
+
+\textbf{Case 2.} $M=5$.
+
+\textbf{Case 2.1.} $n$ is odd. We set
+
+\begin{flushleft}
+$S_1=\{\{v^{[1]},v^{[2]},v^{[3]},v^{[4]},v^{[5]},(v^{[3]})^n\}\}$ and
+
+$S_2=\{\{
+v^{[5+4i+1]},
+v^{[5+4i+2]},
+v^{[5+4i+3]},
+v^{[5+4i+4]},
+(v^{[5+4i+2]})^1,
+(v^{[5+4i+2]})^2
+\} \mid 0\leq i< \lfloor\frac{n-1}{2}\rfloor-1 $\}.
+
+\end{flushleft}
+
+\textbf{Case 2.2.} $n$ is even. We set
+
+\begin{flushleft}
+$S_1=\{\{v^{[1]},v^{[2]},v^{[3]},v^{[4]},v^{[5]},(v^{[3]})^n\}\}$,
+
+$S_2=\{\{
+v^{[5+4i+1]},
+v^{[5+4i+2]},
+v^{[5+4i+3]},
+v^{[5+4i+4]},
+(v^{[5+4i+2]})^1,
+(v^{[5+4i+2]})^2
+\} \mid 0\leq i< \lfloor\frac{n-1}{2}\rfloor-1 $\}, and\\
+
+$S_3=\{\{
+v^{[2n-2]},
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(v^{[2n-1]})^3,
+(v^{[2n-1]})^4
+\}$\}.\\
+
+\end{flushleft}
+
+\textbf{Case 3.} $M=6$.
+
+\textbf{Case 3.1.} $n$ is odd. We set
+
+\begin{flushleft}
+$S_1=\{\{v^{[1]},v^{[2]},v^{[3]},v^{[4]},v^{[5]},(v^{[3]})^n,(\overline{v^{[3]}})^n\}\}$ and
+
+$S_2=\{\{
+v^{[5+4i+1]},
+v^{[5+4i+2]},
+v^{[5+4i+3]},
+v^{[5+4i+4]},
+(v^{[5+4i+2]})^1,
+(v^{[5+4i+2]})^2,
+(v^{[5+4i+2]})^3
+\} \mid 0\leq i< \lfloor\frac{n-1}{2}\rfloor-1 $\}.
+
+\end{flushleft}
+
+\textbf{Case 3.2.} $n$ is even. We set
+
+\begin{flushleft}
+$S_1=\{\{v^{[1]},v^{[2]},v^{[3]},v^{[4]},v^{[5]},(v^{[3]})^n,(\overline{v^{[3]}})^n\}\}$,
+
+$S_2=\{\{
+v^{[5+4i+1]},
+v^{[5+4i+2]},
+v^{[5+4i+3]},
+v^{[5+4i+4]},
+(v^{[5+4i+2]})^1,
+(v^{[5+4i+2]})^2,
+(v^{[5+4i+2]})^3
+\} \mid 0\leq i< \lfloor\frac{n-1}{2}\rfloor-1 $\}, and\\
+
+$S_3=\{\{
+v^{[2n-2]},
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(v^{[2n-1]})^3,
+(v^{[2n-1]})^4,
+(v^{[2n-1]})^5
+\}$\}.\\
+
+\end{flushleft}
+
+\indent{
+Obviously, the subgraph induced by the element in $S_1$ is isomorphic to $K_{1,M}$. For $0\leq i< \lfloor\frac{n-1}{2}\rfloor-1$, vertex $v^{[5+4i+2]}$ is adjacent to vertices $v^{[{5+4i}+j]}$ with $j=1,3$ or 4 and $(v^{[5+4i+2]})^p$ for $1\leq p \leq 1+M-4$. Thus, the subgraph induced by each element in $S_2$ is isomorphic to $K_{1,M}$. Vertex $v^{[2n-1]}$ is adjacent to vertices $v^{[2n-2]}$ and $(v^{([2n-1]})^q$ for $1\leq q\leq 1+M-(2n-2-4\times\lfloor\frac{n-1}{2}\rfloor)$. Therefore, the subgraph induced by the element in $S_3$ is isomorphic to $K_{1,M}$. Suppose that $S=S_1\cup S_2$ when $n$ is odd($S=S_1\cup S_2\cup S_3$, otherwise). Note that $|S|$ =$\lceil\frac{n-1}{2}\rceil$. Let $W(S)=\cup_{f \in S}f$. Since $AQ_n - W(S)$ is disconnected and one component of it is $\{u\}$, $\kappa(AQ_n,K_{1,M})$ $\leq$ $\lceil\frac{n-1}{2}\rceil$ and $\kappa^s(AQ_n,K_{1,M})$ $\leq$ $\lceil\frac{n-1}{2}\rceil$ with $4 \leq M \leq 6$. Figure \ref{K_1_5} shows a $K_{1,5}$-structure-cut of $AQ_6$.
+}
+}
+\end{proof}
+
+%证明4<=M<=6时，一个节点u的所有邻接节点最少能够包含的K_1_M子结构的节点数
+\begin{lem}
+\label{min_K_1_M}
+%Let $F_n$ be a $K_{1,M}$-substructure set of $AQ_n$ and $u$ be a vertex in $AQ_n - V(F_n)$. If $u$ is an isolated vertex in  $AQ_n - V(F_n)$, then $|F_n|\geq \lceil\frac{n-1}{2}\rceil$.
+Let $F_n$ be a $K_{1,M}$-substructure set of $AQ_n$ with $n \geq$ 6 and $4 \leq M \leq 6$. If there exists an isolated vertex in  $AQ_n - V(F_n)$, then $|F_n|\geq \lceil\frac{n-1}{2}\rceil$.
+\end{lem}
+
+
+\begin{proof}
+\normalfont{
+ Let $u$ be an any vertex in $AQ_n$.
+ %We set $F_n=\bigcup_{i=1}^{1+M}A_i$ where $A_1$ is a vertex set and $A_i$ with $i \geq 2$ is a set of $\{\{x_1,x_2,\ldots,x_i\} \mid (x_1,x_j) \in E(AQ_n)$ for $2 \leq j \leq i\}$.
+ We set $W=\{x \mid (x,u)$ is a hypercube edge$, x \in V(G)\}$ and $Z=\{y \mid (y,u)$ is a complement edge$, y \in V(G)\}$. Clearly, $|W|=n$ and $|Z|=n-1$. By
+ %definition of $AQ_n$, property \ref{hypercube_edge},
+ Property \ref{complement_edge} and Property \ref{common_verticles}, each element in $F_n$ contains at most five distinct vertices in $N(u)$,  namely, $\bar{u}^i,\bar{u}^{i-1},u^i,u^{i+1}$, and $\bar{u}^{i+1}$ with $2 \leq i \leq n-1$. Since $\{(\bar{u}^i,\bar{u}^{i-1}),(\bar{u}^i,u^i),(\bar{u}^i,u^{i+1}),(\bar{u}^i,\bar{u}^{i+1})\} \subseteq E(AQ_n)$, the subgraph induced by $\{\bar{u}^i,\bar{u}^{i-1},u^i,u^{i+1},\bar{u}^{i+1}\}$ is isomorphic to $K_{1,4}$. We set $B=\{b_i\mid b_i\in F_n \textnormal{ and } \{\bar{u}^{i-1},u^i,\bar{u}^i,u^{i+1},\bar{u}^{i+1}\} \subseteq V(b_i)\cap N(u)\}$. Since each $V(b_i)$ contains three vertices in $Z$ and two vertices in $W$, $|B|<\lfloor\frac{2n-1}{5}\rfloor$.
+  %On the other hand, any four consecutive neighbors(According to our previous agreed order) of $u$ can form a $K_{1,3}$. That is, $(1)\{u^i,\bar{u}^i,u^{i+1},\bar{u}^{i+1}\}$ for $2 \leq i \leq n-2$ and $\{(\bar{u}^i,u^i),(\bar{u}^i,u^{i+1}),(\bar{u}^i,\bar{u}^{i+1})\}\subseteq E(AQ_n)$. $(2)\{\bar{u}^i,u^{i+1},\bar{u}^{i+1},u^{i+2}\}$ for $2 \leq i \leq n-2$ and $\{(\bar{u}^{i+1},\bar{u}^i),(\bar{u}^{i+1},u^{i+1}),(\bar{u}^{i+1},u^{i+2})\}\subseteq E(AQ_n)$.
+In the following, we distinguish cases for the value of $|B|$.\\
+
+\indent
+{
+\textbf{Case 1.}\quad $|B|=0$. Since each element in $F_n$ contains at most four distinct vertices in $N(u)$, $|F_n| \geq \lceil \frac{2n-1}{4} \rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 2.}\quad $|B|=1$. Suppose that $\{\bar{u}^{i-1},u^i,\bar{u}^i,u^{i+1},\bar{u}^{i+1}\} \subseteq V(b_i)$ with $2 \leq i \leq n-1$.  Since each element in $F_n-B$ contains at most four distinct vertices in $N(u)-V(B)$, $|F_n| \geq 1+\lceil \frac{2n-6}{4} \rceil=\lceil \frac{n-1}{2} \rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 3.}\quad $|B|=2$. Suppose that $\{\bar{u}^{i-1},u^i,\bar{u}^i,u^{i+1},\bar{u}^{i+1}\} \subseteq V(b_i),
+\{\bar{u}^{j-1},u^j,\bar{u}^j,u^{j+1},\bar{u}^{j+1}\} \subseteq V(b_j)$ with $2 \leq i,j \leq n-1$, and $|i-j|\geq 3$. Without loss of generality, we set $j>i$.
+}\\\\
+\indent
+{
+\textbf{Case 3.1.}\quad $j-i=3$.
+%Suppose $u^m,u^n \in H$ and $m<n$, if $n=m+1$ and $m \neq 1$, then $N(u^m) \cap N(u^n)=\{u,(u^m)^n,\bar{u}^m,(\overline{u^n})^{m-1}\}$. If $m=1,n=2$ or $n-m>1$, then $N(u^m) \cap N(u^n)=\{u,(u^m)^n\}$. Suppose $\bar{u}^m,\bar{u}^n \in C$, if $n=m+1$, then $N(\bar{u}^m) \cap N(\bar{u}^n)=\{u,u^n\}$. If $n-m>2$, $N(\bar{u}^m) \cap N(\bar{u}^n)=\{u,(\overline{\bar{u}^n})^m\}$. If $n-m=2$, $N(u^m) \cap N(u^n)=\{u,(\overline{\bar{u}^n})^m,(\bar{u})^{m+1},(\bar{u}^n)^{n-1}\}$
+Then $\{\bar{u}^{j-1},u^j,\bar{u}^j,u^{j+1},\bar{u}^{j+1}\}= \{\bar{u}^{i+2},u^{i+3},\bar{u}^{i+3},u^{i+4},\bar{u}^{i+4}\}$.
+Suppose that $w_1,w_2 \in N(u)-V(B)-\{u^{i+2}\}$ and $w_1 \neq w_2$. By Properties \ref{two_hypercube_edges}, \ref{two_complement_edges} and \ref{hypercube_edge_and_complement_edge}, $N(u^{i+2}) \cap N(w_1) \cap N(w_2)=\emptyset$.
+%then $u^{i+2}$ can't be a pendent vertex of $K_{1,m}$ with $m>2$ and $|V(K_{1,m})| \subseteq N(AQ_n)$.
+In addition, vertex $u^{i+2}$ is not adjacent to the vertices in $N(u)-V(B)$.
+%then $u^{i+2}$ can't be a center vertex of $K_{1,m}$ with $m
+%  \geq 1$ and $|V(K_{1,m})| \subseteq N(AQ_n)$.
+Therefore, there is an element $a \in F_n-B$ such that $u^{i+2} \in V(a)$ and $V(a) \cap \{N(u)-V(B)\} \leq 2$. Since each element in $F_n-B-\{a\}$ contains at most four distinct vertices in $N(u)-V(B)-V(a)$, $|F_n| \geq 2+1+\lceil\frac{2n-13}{4}\rceil=\lceil\frac{2n-1}{4}\rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 3.2.}\quad $j-i=4$. Then $\{\bar{u}^{j-1},u^j,\bar{u}^j,u^{j+1},\bar{u}^{j+1}\}= \{\bar{u}^{i+3},u^{i+4},\bar{u}^{i+4},u^{i+5},\bar{u}^{i+5}\}$.
+%下面这句话有没有语法错误
+In the following, we distinguish cases for the number of elements containing three vertices $u^{i+2},\bar{u}^{i+2}$ and $u^{i+3}$  in $F_n-B$.
+%这句话说得有没有歧义
+We use $S$ to denote the number of elements further deal with the following cases.
+}\\\\
+\indent
+{
+\textbf{Case 3.2.1.}\quad $S=3$. Then there are three distinct elements in $N(u)-V(B)$ that contain one of three vertices $u^{i+2},\bar{u}^{i+2}$, and $u^{i+3}$, respectively. Suppose that $w_1,w_2 \in N(u)-V(B)-\{u^{i+2},\bar{u}^{i+2},u^{i+3}\}$ and $w_1 \neq w_2$. By Properties \ref{two_hypercube_edges}, \ref{two_complement_edges} and \ref{hypercube_edge_and_complement_edge}, $N(u^{i+2}) \cap N(w_1) \cap N(w_2)=\emptyset$. In addition, vertex $u^{i+2}$ is not adjacent to the vertices in $N(u)-V(B)-\{\bar{u}^{i+2},u^{i+3}\}$. Therefore, there is an element $a_1 \in F_n-B$ such that $u^{i+2} \in V(a_1)$ and $V(a_1) \cap \{N(u)-V(B)-\{\bar{u}^{i+2},u^{i+3}\}\} \leq 2$. For the cases of vertices $\bar{u}^{i+2}$ and $u^{i+3}$, the discussions are similar to that of vertex $u^{i+2}$ and we set $\bar{u}^{i+2}\in a_2$, $u^{i+3}\in a_3$ . Since each element in $F_n-B-\{a_1,a_2,a_3\}$ contains at most four distinct vertices in $N(u)-V(B)-V(a_1)-V(a_2)-V(a_3)$, $|F_n| \geq 2+3+\lceil\frac{2n-17}{4}\rceil=\lceil\frac{2n+3}{4}\rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 3.2.2.}\quad $S=2$. Then there are two distinct elements in $N(u)-V(B)$, one of which contains one vertex in $u^{i+2},\bar{u}^{i+2}$, and $u^{i+3}$ and another element contains the other two vertices. We assume that $a_1$ contains one vertex in $u^{i+2},\bar{u}^{i+2}$ and $u^{i+3}$ and $a_2$ contains the other two vertices.
+%Since the element $a$ in $F_n$ contains at most two distinct vertices in $N(u)-V(B)$ and any two vertices in the $\{u^{i+2}$,$\bar{u}^{i+2},u^{i+3}\}$ are these vertices. The element in $F_n-B-a$ contains at most four distinct vertices in $N(u)-V(B)-V(a)$. Thus, $F_n \geq 2+1+1+\lceil\frac{2n-15}{4}\rceil=4+\lceil\frac{2n-15}{4}\rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 3.2.2.1.}\quad $u^{i+2} \in V(a_1)$ and $\{\bar{u}^{i+2}, u^{i+3}\} \subseteq V(a_2)$. Similar to the discussion of Case 3.2.1, we have %$u^{i+2} \in V(a_1)$ and
+$V(a_1) \cap \{N(u)-V(B)-\{\bar{u}^{i+2},u^{i+3}\}\} \leq 2$. Since $N(\bar{u}^{i+2}) \cap N(u^{i+3})-\{u,\bar{u}^{i+3}\}=\{(\bar{u}^{i+2})^{i+4},(u^{i+3})^{i+4}\}$, each element in $\{(\bar{u}^{i+2})^{i+4},(u^{i+3})^{i+4}\}$ is not adjacent to the vertices in $N(u)-V(B)-\{u^{i+2},\bar{u}^{i+2}, u^{i+3}\}$ and each element in $\{\bar{u}^{i+2},u^{i+3}\}$ is not adjacent to the vertices in $N(u)-V(B)-\{u^{i+2}\}$, $V(a_2) \cap \{N(u)-V(B)-\{u^{i+2}\}\}=2$ and  $\{\bar{u}^{i+2},u^{i+3}\} \subseteq V(a_2)$. Since each element in $F_n-B-\{a_1,a_2\}$ contains at most four distinct vertices in $N(u)-V(B)-V(a_1)-V(a_2)$, $|F_n| \geq 2+1+1+\lceil\frac{2n-15}{4}\rceil=\lceil \frac{2n+1}{4} \rceil$. For the case of vertices $u^{i+3} \in V(a_1)$ and $\{\bar{u}^{i+2}$ $u^{i+2}\} \subseteq V(a_2)$, the discussion is similar.
+}\\\\
+\indent
+{
+\textbf{Case 3.2.2.2.}\quad $\bar{u}^{i+2} \in V(a_1)$ and $\{u^{i+2},u^{i+3}\} \subseteq V(a_2)$. Similar to the discussion of Case 3.2.1, we have $V(a_1) \cap \{N(u)-V(B)-\{u^{i+2},u^{i+3}\}\} \leq 2$. Since $N(u^{i+2}) \cap N(u^{i+3})-\{u,\bar{u}^{i+2}\}=\{(u^{i+2})^{i+3},(\bar{u}^{i+3})^{i+2}\}$, each element in $\{(u^{i+2})^{i+3},(\bar{u}^{i+3})^{i+2}\}$ is not adjacent to the vertices in $N(u)-V(B)-\{\bar{u}^{i+2}\}$ and $(u^{i+2},u^{i+3}) \notin E(AQ_n)$, $V(a_2) \cap \{N(u)-V(B)-\{\bar{u}^{i+2}\}\}=2$ and  $\{u^{i+2},u^{i+3}\} \subseteq V(a_2)$. Since each element in $F_n-B-\{a_1,a_2\}$ contains at most four distinct vertices in $N(u)-V(B)-V(a_1)-V(a_2)$, $|F_n| \geq 2+1+1+\lceil\frac{2n-15}{4}\rceil=\lceil \frac{2n+1}{4} \rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 3.2.3.}\quad $S=1$. According to the discussions of Case 3.2.1 and Case 3.2.2, there is an element $a \in F_n-B$ such that $V(a) \cap \{N(u)-V(B)\} = 3$ and $\{u^{i+2},\bar{u}^{i+2},u^{i+3}\} \subseteq V(a)$ . Since each element in $F_n-B-\{a\}$ contains at most four distinct vertices in $N(u)-V(B)-V(a)$, $|F_n| \geq 2+1+\lceil\frac{2n-14}{4}\rceil=\lceil \frac{n-1}{2} \rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 3.3.}\quad $j-i\geq 5$. We set $U_{ij}=\{u^{i+2},\bar{u}^{i+2},\ldots,u^{j-1}\}$. In the following, we will calculate the number of elements containing $U_{ij}$  in $F_n-B$. Since $5 \leq |U_{ij}| \leq 2n-11$ and each element contains at most four distinct vertices of $N(u)-V(B)$ in $F_n-B$, we will distinguish cases for
+the value of $|U_{ij}|$.
+}\\\\
+\indent
+{
+\textbf{Case 3.3.1.}\quad $|U_{ij}|\equiv1(\textnormal{mod }4)$. Similar to the discussion in Case 3.1, we have $|F_n| \geq 2+1+\lceil\frac{2n-13}{4}\rceil=\lceil\frac{2n-1}{4}\rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 3.3.2.}\quad $|U_{ij}|\equiv3(\textnormal{mod }4)$. Similar to the discussion in Case 3.2 we have $|F_n| \geq 2+1+\lceil\frac{2n-14}{4}\rceil=\lceil\frac{n-1}{2}\rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 4.}\quad $|B| \geq 3$. If $b_i,b_j \in B$ and there is no $b_k \in B$ with $i<k<j$, we set $U_{ij}=\{u^{i+2},\bar{u}^{i+2},\ldots,u^{j-1}\}$.  According to the discussion of Case 3, if $|U_{ij}|\equiv3(\textnormal{mod }4)$, then the value of $F_n$ will be the smallest. Thus, $|F_n| \geq |B|+(|B|-1)+\lceil\frac{2n-1-5\times|B|-3\times(|B|-1)}{4}\rceil=\lceil\frac{n-1}{2}\rceil$.
+}\\
+
+
+ In summary, the lemma holds.
+ }
+\end{proof}
+
+
+%K_1_6的插图
+\begin{figure}
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=0.3]{K_1_5.eps}\\
+  \caption{A $K_{1,5}$-structure-cut in $AQ_6$}
+  \label{K_1_5}
+\end{figure}
+
+\begin{lem}
+\label{4<=M<=6(2)}
+For n $\geq$ 6 and $4 \leq M \leq 6$, $\kappa(AQ_n,K_{1,M})$ $\geq$ $\lceil\frac{n-1}{2}\rceil$ and $\kappa^s(AQ_n,K_{1,M})$ $\geq$ $\lceil\frac{n-1}{2}\rceil$.
+\end{lem}
+
+\begin{proof}
+\normalfont
+{
+%Let $F_n^*$ be a $K_{1,M}$-substructure set of $AQ_n$ and we will show that $AQ_n-V(F_n^*)$ is connected if $|F_n^*| \leq \lceil\frac{n-1}{2}\rceil-1$. Suppose not, let $R$ be the smallest component of $AQ_n-V(F_n^*)$. Note that $|V(F_n^*)| \leq (1+M)\times(\lceil\frac{n-1}{2}\rceil-1) \leq 7\times(\lceil\frac{n-1}{2}\rceil-1)$. By Lemma \ref{1_extraconnectivity}, we have $7\times(\lceil\frac{n-1}{2}\rceil-1) \leq 4n-8$ for $n \geq 6$. So $|V(R)|=1$. Therefore, we assume that vertex $u \in V(R)$. By Lemma \ref{min_K_1_M}, $|N(u) \cap V(F_n^*)| \leq 2n-2 < 2n-1$, which implies that there exists a neighbor of $u$ in $AQ_n-V(F_n^*)$. Therefore, we have $|V(R)| \geq 2$, a contradiction. Thus, $AQ_n-V(F_n^*)$ is connected. The lemma holds.
+
+We will prove this lemma by contradiction. Let $F_n^*$ be a $K_{1,M}$-substructure set of $AQ_n$ and $|F_n^*| \leq \lceil\frac{n-1}{2}\rceil-1$. If $AQ_n-V(F_n^*)$ is disconnected, then we let $R$ be the smallest component of $AQ_n-V(F_n^*)$. Note that $|V(F_n^*)| \leq (1+M)\times(\lceil\frac{n-1}{2}\rceil-1) \leq 7\times(\lceil\frac{n-1}{2}\rceil-1)$. By Lemma \ref{1_extraconnectivity}, we have $7\times(\lceil\frac{n-1}{2}\rceil-1) < 4n-8$ for $n \geq 6$. Hence $|V(R)|=1$. Furthermore, we assume that vertex $u \in V(R)$. By Lemma \ref{min_K_1_M}, $|N(u) \cap V(F_n^*)| \leq 2n-2 < 2n-1$, which means that there exists at least one neighbor of $u$ in $AQ_n-V(F_n^*)$. Therefore, we have $|V(R)| \geq 2$, a contradiction. Thus, $AQ_n-V(F_n^*)$ is connected. The lemma holds.
+}
+\end{proof}
+%Lemma和Theorem是不是要大写？
+\indent
+{
+Combining Lemma \ref{4<=M<=6(1)}, we have $\kappa^s(AQ_n,K_{1,M})=\lceil\frac{n-1}{2}\rceil$. Since $\kappa(Q_n,K_{1,M})\geq \kappa^s(Q_n,K_{1,M})$, $\kappa(Q_n,K_{1,M})\geq \lceil\frac{2n-1}{1+M}\rceil$. By Lemma \ref{4<=M<=6(1)} and Lemma \ref{4<=M<=6(2)}, we have the following theorem.
+}
+\begin{thm}
+For n $\geq$ 6 and $4 \leq M \leq 6$, $\kappa(AQ_n,K_{1,M})=\lceil\frac{n-1}{2}\rceil$ and $\kappa^s(AQ_n,K_{1,M})=\lceil\frac{n-1}{2}\rceil$.
+\end{thm}
+
+
+\subsection{$\kappa(AQ_n,P_L )$ \textnormal{and} $\kappa^s(AQ_n,P_L)$}
+Let $u$ be an arbitrary vertex in $AQ_n$, according to the definition of $AQ_n$, $(\bar{u}^{i-1},u^i)\in E(AQ)$ and $(u^i,\bar{u}^i)\in E(AQ)$ $(2\leq i \leq n)$. Thus $\langle u^1,u^2,\bar{u}^{2},\ldots,u^{n},\bar{u}^{n}\rangle$ can form a path with length of $2n-2$.
+
+Since $P_2(P_3)$ is isomorphic to $K_{1,1}(K_{1,2})$ and we have given  $\kappa(AQ_n,K_{1,1})(\kappa(AQ_n,K_{1,2}))$ and $\kappa^s(AQ_n,K_{1,1})
+(\kappa^s(AQ_n,K_{1,2}))$ in section 3.1, we assume $L \geq 4$ in the following.
+
+\begin{lem}
+\label{P_Q<=}
+For n $\geq$ 3 and $4 \leq L \leq 2n-1$, $\kappa(AQ_n,P_L)$ $\leq$ $\lceil\frac{2n-1}{L}\rceil$ and $\kappa^s(AQ_n,P_L)$ $\leq$ $\lceil\frac{2n-1}{L}\rceil$.
+\end{lem}
+
+
+
+\begin{proof}
+\normalfont
+{
+Let $u$ be an arbitrary vertex in $AQ_n$. We set\\\\
+$S_1 =
+\{\{v^{[i\times L+1)]},v^{[i\times L+2]},\ldots,v^{[i\times L+L]}\}\mid 0 \leq i < \lfloor\frac{2n-1}{L}\rfloor\}$.\\
+
+%下面能不能用同一种表示方法将下面五种情况统一
+If $(2n-1)\equiv0$(mod $L$), then we set $S_2=\emptyset$. Otherwise, according to the values of $L$ and $\lceil\frac{2n-1}{L}\rceil\times L-2n+1$, we will divide into the following cases,\\\\
+\indent
+{
+\textbf{Case 1.} $L$ is odd and $L\leq 2n-3$.\\\\
+}
+\indent
+{
+\textbf{Case 1.1.} $\lceil\frac{2n-1}{L}\rceil \times L-2n+1$ is even. We set\\\\
+$S_2=\{\{
+v^{[
+\lfloor\frac{2n-1}{L}\rfloor\times L+1]},
+\ldots,
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(\overline{v^{[2n-1]}})^2,
+(v^{[2n-1]})^3,
+(\overline{v^{[2n-1]}})^3,\\
+\ldots,
+(v^{[2n-1]})^{\frac{\lceil\frac{2n-1}{L}\rceil\times L-2n+1}{2}+1}\}
+\}. $
+}\\\\
+\indent
+{
+\textbf{Case 1.2.} $\lceil\frac{2n-1}{L}\rceil \times L-2n+1$ is odd. We set\\\\
+$S_2=\{\{
+v^{[\lfloor\frac{2n-1}{L}\rfloor\times L+1]},
+\ldots,
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(\overline{v^{[2n-1]}})^2,
+(v^{[2n-1]})^3,
+(\overline{v^{[2n-1]}})^3,\\
+\ldots,
+(\overline{v^{[2n-1]}})^{\frac{\lceil\frac{2n-1}{L}\rceil\times L-2n}{2}+1}\}
+$\}.
+}\\\\
+\indent
+{
+\textbf{Case 2.} $L$ is even and $L\leq 2n-4$. We set\\\\
+$S_2=\{\{
+v^{[\lfloor\frac{2n-1}{L}\rfloor\times L+1]},
+\ldots,
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(\overline{v^{[2n-1]}})^2,
+(v^{[2n-1]})^3,
+(\overline{v^{[2n-1]}})^3,\\
+\ldots,
+(\overline{v^{[2n-1]}})^{\frac{\lceil\frac{2n-1}{L}\rceil\times L-2n}{2}+1}\}
+$\}.
+}\\\\
+\indent
+{
+\textbf{Case 3.} $ L = 2n-2$. We set\\\\
+$S_2=\{\{
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(\overline{v^{[2n-1]}})^2,
+(v^{[2n-1]})^3,
+(\overline{v^{[2n-1]}})^3,
+\ldots,
+(v^{[2n-1]})^{n-1},\\
+((v^{[2n-1]})^{n-1})^1
+\}$\}.
+}
+\\
+
+%是不是要说明一下为什么是同构的，也就是要说明一下各条边是怎么相连的
+Suppose that $S=S_1$ when $(2n-1)  \equiv 0$ (mod $L$) ($S=S_1 \cup S_2$, otherwise). Obviously, the subgraph induced by each element in $S$ is isomorphic to $P_L$ and $|S|$ = $\lceil\frac{2n-1}{L}\rceil$. Let $W(S)=\cup_{f \in S}f$. Since $AQ_n-W(S)$ is disconnected and one component of it is \{$u$\}, $\kappa(AQ_n,P_L)$ $\leq$ $\lceil\frac{2n-1}{L}\rceil$ and $\kappa^s(AQ_n,P_L)$ $\leq$ $\lceil\frac{2n-1}{L}\rceil$.
+}
+\end{proof}
+
+\begin{lem}
+\label{P_Q>=}
+For n $\geq$ 3 and $4 \leq L \leq 2n-1$, $\kappa^s(AQ_n,P_L)$ $\geq$ $\lceil\frac{2n-1}{L}\rceil$.
+\end{lem}
+
+\begin{proof}
+\normalfont
+{
+Let $F_n^*$ be a set of connected subgraphs in $AQ_n$, every element in the set is isomorphic to a connected subgraph of $P_L$ and $|F_n^*|\leq \lceil\frac{2n-1}{L}\rceil-1$. Thus $|V(F_n^*)|\leq L\times(\lceil\frac{2n-1}{L}\rceil-1)< 2n-1$. Since $\kappa(AQ_n)= 2n-1$,  $AQ_n-F_n^*$ is connected. Hence, the lemma holds.
+}
+\end{proof}
+
+By Lemma \ref{P_Q<=} and Lemma \ref{P_Q>=}, we have the following theorem.
+
+
+\begin{thm}
+\label{P_Q}
+For n $\geq$ 3 and and $4 \leq L \leq 2n-1$, $\kappa(AQ_n,P_L)=\kappa^s(AQ_n,P_L)=\lceil\frac{2n-1}{L}\rceil$.
+\end{thm}
+
+
+
+\subsection{$\kappa(AQ_n,C_N)$ \textnormal{and} $\kappa^s(AQ_n,C_N)$}
+% 这句话是不是有点偏口语化了
+At first, we discuss $\kappa^s(AQ_n,C_N)$. Then we discuss $\kappa(AQ_n,C_N)$.
+\subsubsection{$\kappa^s(AQ_n,C_N)$ \textnormal{with} $3 \leq N \leq 2n-1$}
+Since $P_N$ is a connected subgraph of $C_N$, we have the following lemmas.
+
+%子结构C_3小于等于的引理
+\begin{lem}
+\label{k_s(AQ_n,C_N)<=}
+For n $\geq$ 3 and $3 \leq N \leq 2n-1$, $\kappa^s(AQ_n,C_N)$ $\leq$ $\lceil\frac{2n-1}{N}\rceil$.
+\end{lem}
+
+%这中间是不是应该加句话，不然不太好看
+
+%子结构C_3大于等于的引理
+\begin{lem}
+\label{k_s(AQ_n,C_N)>=}
+For n $\geq$ 3 and $3 \leq N \leq 2n-1$, $\kappa^s(AQ_n,C_N)$ $\geq$ $\lceil\frac{2n-1}{N}\rceil$.
+\end{lem}
+
+%%子结构C_3大于等于的证明
+\begin{proof}
+\normalfont
+{
+Let $F_n^*$ be a set of connected subgraphs in $AQ_n$, every element in the set is isomorphic to a connected subgraph of $C_N$ with $|F_n^*|\leq \lceil\frac{2n-1}{N}\rceil-1$. Thus $V(F_n^*)\leq N\times(\lceil\frac{2n-1}{N}\rceil-1)< 2n-1$. Since $\kappa(AQ_n)$ = $2n-1$,  $AQ_n-F_n^*$ is connected. Hence, the lemma holds.
+}
+\end{proof}
+By Lemma \ref{k_s(AQ_n,C_N)<=} and Lemma \ref{k_s(AQ_n,C_N)>=}, we have the following theorem.
+\begin{thm}
+For n $\geq$ 3 and $3 \leq N \leq 2n-1$, $\kappa^s(AQ_n,C_N) = \lceil\frac{2n-1}{N}\rceil$.\\
+\end{thm}
+
+Now, we discuss $\kappa(AQ_n,C_3)$ and $\kappa(AQ_n,C_N)$ with $4 \leq N \leq 2n-1$.
+
+
+\subsubsection{$\kappa(AQ_n,C_3)$}
+
+We have the following lemma.
+
+%C_n的证明
+\begin{lem}
+\label{C_3<=}
+For  $n \geq$ 6, $\kappa(AQ_n,C_3) \leq n-1$.
+\end{lem}
+
+%S中的元素是要写成(u1,u2,u3)还是(u1,u2,u3)?
+\begin{proof}
+\normalfont
+{
+Let $u$ be an any vertex in $AQ_n$. We set\\\\
+$S_1=\{\{u^1,u^2,\bar{u}^2\}\}$ and
+$S_2=\{\{u^i,\bar{u}^i,(u^i)^{i-1}\}\mid 3\leq i \leq n\}$.\\
+
+Obviously, the subgraph induced by the element in $S_1$ is isomorphic to $C_3$. For $3\leq i \leq n$, $\{\{u^i,\bar{u}^i\},\{\bar{u}^i,(u^i)^{i-1}\},\{(u^i)^{i-1},u^i\}\} \subseteq E(AQ_n)$. Thus, the subgraph induced by each element in $S=S_1\cup S_2$ is isomorphic to $C_3$ and $|S|$ = $n-1$. Let $W(S)=\cup_{f \in S}f$. Since $AQ_n-W(S)$ is disconnected
+and one component of it is \{$u$\}, $\kappa(AQ_n,C_3)$ $\leq$ $n-1$.
+}
+\end{proof}
+
+\begin{lem}
+\label{min_C_3}
+Let $F_n$ be a $C_3$-structure set of $AQ_n$ with $n \geq$ 6. If there exists an isolated vertex in  $AQ_n - V(F_n)$, then $|F_n|\geq n-1$.
+\end{lem}
+
+\begin{proof}
+\normalfont
+{
+Let $u$ be an any vertex in $AQ_n$. We set $W=\{x \mid (x,u)\textnormal{ is a hypercube edge}, x \in V(G)\}$ and $Z=\{y \mid (y,u)\textnormal{ is a complement edge}, y \in V(G)\}$. Clearly, $|W|=n$ and $|Z|=n-1$. By
+ %definition of $AQ_n$,
+ Property \ref{hypercube_edge} and Property \ref{complement_edge}, each element in $F_n$ contains at most three distinct vertices in $N(u)$,  namely, $\bar{u}^i,u^{i+1}$ and $\bar{u}^{i+1}$ with $1 \leq i \leq n-1$ and $\{(\bar{u}^i,u^{i+1}),(\bar{u}^i,\bar{u}^{i+1}),(u^{i+1},\bar{u}^{i+1})\} \subseteq E(AQ_n)$. Thus, the subgraph induced by $\{\bar{u}^i,u^{i+1},\bar{u}^{i+1}\}$ is isomorphic to $C_3$. We set $B=\{b_i\mid b_i\in F_n \textnormal{ and } \{\bar{u}^i,u^{i+1},\bar{u}^{i+1}\} \subseteq V(b_i) \cap N(u)\}$. Since each $V(b_i)$ contains two vertices in $Z$ and one vertex in $W$,  $|B|<\lfloor\frac{2n-1}{3}\rfloor$.
+In the following, we distinguish cases for
+the value of $|B|$.\\
+
+\indent
+{
+\textbf{Case 1.}\quad $|B|=0$. Since each element in $F_n$ contains at most two distinct vertices in $N(u)$, $|F_n| \geq \lceil \frac{2n-1}{2} \rceil$.
+}\\\\
+\indent
+{
+\textbf{Case 2.}\quad $|B|=1$. Suppose that $\{\bar{u}^i,u^{i+1},\bar{u}^{i+1}\} \subseteq V(b_i)$ with $1 \leq i \leq n-1$.  Since each element in $F_n-B$ contains at most two distinct vertices in $N(u)-V(B)$, $|F_n| \geq 1+\lceil \frac{2n-4}{2} \rceil= n-1$.
+}\\\\
+\indent
+{
+\textbf{Case 3.}\quad $|B|=2$. Suppose that $\{\bar{u}^i,u^{i+1},\bar{u}^{i+1}\} \subseteq V(b_i),
+\{\bar{u}^j,u^{j+1},\bar{u}^{j+1}\} \subseteq V(b_j)$ with $1 \leq i,j \leq n-1$, and $|i-j|\geq 2$.  Without loss of generality, we set $j>i$.
+}\\\\
+\indent
+ {
+ \textbf{Case 3.1.}\quad $j-i=2$. Then $\{\bar{u}^j,u^{j+1},\bar{u}^{j+1}\}= \{\bar{u}^{i+2},u^{i+3},\bar{u}^{i+3}\}$. According to the definition of $AQ_n$, vertex $u^{i+2}$ is not adjacent to the vertices in $N(u)-V(B)$. As a result, there is an element $a\in F_n-B$ such that $u^{i+2} \in V(a)$ and $V(a) \cap \{N(u)-V(B)\} = 1$. Since the element in $F-B-\{a\}$ contains at most two distinct vertices in $N(u)-V(B)-V(a)$, $|F_n| \geq 2+1+\lceil\frac{2n-8}{2}\rceil=n-1$.
+ }\\\\
+ \indent
+ {
+ \textbf{Case 3.2.}\quad $j-i=3$. Then $\{\bar{u}^j,u^{j+1},\bar{u}^{j+1}\}= \{\bar{u}^{i+3},u^{i+4},\bar{u}^{i+4}\}$.
+ %下面这句话有没有语法错误
+ In the following, we distinguish cases for the number of elements  containing three vertices $u^{i+2},\bar{u}^{i+2}$, and $u^{i+3}$ in $F_n-B$. We use $S$ denote the number of elements further deal with the following cases.
+ }\\\\
+\indent
+ {
+ \textbf{Case 3.2.1.}\quad $S=3$. Then there are three distinct elements in $N(u)-V(B)$ that contain one of three vertices $u^{i+2},\bar{u}^{i+2}$, and $u^{i+3}$, respectively. By the definition of $AQ_n$, vertex $u^{i+2}$ is not adjacent to the vertices in $N(u)-V(B)-\{\bar{u}^{i+2}$,$u^{i+3}\}$. Then there is an element $a_1 \in F_n-B$ such that $u^{i+2} \in V(a_1)$ and $V(a_1) \cap \{N(u)-V(B)-\{\bar{u}^{i+2}$,$u^{i+3}\}\} = 1$. For the cases of vertices $\bar{u}^{i+2}$ and $u^{i+3}$, the discussions are similar to that of vertex $u^{i+2}$ and we set $\bar{u}^{i+2}\in a_2$, $u^{i+3}\in a_3$. Since each element in $F_n-B-\{a_1,a_2,a_3\}$ contains at most two distinct vertices in $N(u)-V(B)-V(a_1)-V(a_2)-V(a_3)$, $|F_n| \geq 2+3+\lceil\frac{2n-10}{2}\rceil=n$.
+ }\\\\
+ \indent
+ {
+ \textbf{Case 3.2.2.}\quad $S=2$. Then there are two distinct elements in $N(u)-V(B)$, one of which contains one vertex in $u^{i+2},\bar{u}^{i+2}$ and $u^{i+3}$, and the other contains the other two vertices. We assume that $a_1$ contains one vertex in $u^{i+2},\bar{u}^{i+2}$ and $u^{i+3}$ and $a_2$ contains the other two vertices.
+ }\\\\
+ \indent
+ {
+ \textbf{Case 3.2.2.1.}\quad $u^{i+2} \in V(a_1)$ and $\{\bar{u}^{i+2}, u^{i+3}\} \subseteq V(a_2)$. Similar to the discussion of Case 3.2.1, we have  $V(a_1) \cap \{N(u)-V(B)-\{\bar{u}^{i+2},u^{i+3}\}\}=1$. Vertex $\bar{u}^{i+2}$ or $u^{i+3}$ is not adjacent to the vertices in $N(u)-V(B)-\{u^{i+2}\}$ and $\{\bar{u}^{i+2},u^{i+3}\} \in E(AQ_n)$. Then $\{\bar{u}^{i+2},u^{i+3}\} \subseteq a_2$ and $V(a_2) \cap \{N(u)-V(B)-\{u^{i+2}\}\}=2$. Since each element in $F_n-B-\{a_1, a_2\}$ contains at most two distinct vertices in $N(u)-V(B)-V(a_1)-V(a_2)$, $|F_n| \geq 2+1+1+\lceil\frac{2n-10}{2}\rceil=n-1$. For the case of vertices $u^{i+3} \in V(a_1)$ and $\{\bar{u}^{i+2}$ $u^{i+2}\} \subseteq V(a_2)$, the discussion is similar.
+ }\\\\
+ \indent
+ {
+ \textbf{Case 3.2.2.2.}\quad $\bar{u}^{i+2} \in V(a_1)$ and $\{u^{i+2},u^{i+3}\} \subseteq V(a_2)$. Since $\{u^{i+2},u^{i+3}\} \notin E(AQ_n)$, this situation does not exist.
+ }\\\\
+ \indent
+ {
+ \textbf{Case 3.2.3.}\quad $S=1$. Since $\{u^{i+2},u^{i+3}\} \notin E(AQ_n)$, this situation does not exist.
+ }\\\\
+ \indent
+ {
+ \textbf{Case 3.3.}\quad $j-i \geq 4 $. We set $U_{ij}=\{u^{i+2},\bar{u}^{i+2},\ldots,u^{j-1}\}$. We will calculate the number of elements containing $U_{ij}$ in $F_n-B$. Clearly, $5 \leq |U| \leq 2n-7$. Since each element contains at most two distinct vertices of $N(u)-V(B)$ in $F_n-B$ and $U \equiv 1$(mod 2), similar to the discussion in Case 3.2.1, we have $|F_n| \geq 2+1+\lceil\frac{2n-8}{2}\rceil=n-1$.
+ }\\\\
+ \indent
+ {
+ \textbf{Case 4.}\quad $|B| \geq 3$. If $b_i,b_j \in B$ and there is no $b_k \in B$ with $i<k<j$, we set $U_{ij}=\{u^{i+2},\bar{u}^{i+2},\ldots,u^{j-1}\}$. According to the discussion of Case 3, the minimum number of elements  that contain all vertices of $U_{ij}$ in $F_n-B$ is $\lceil\frac{|U_{ij}|}{2}\rceil$. Thus, $|F_n| \geq |B|+(|B|-1)+\lceil\frac{2n-1-3\times|B|-(|B|-1)}{2}\rceil=n-1.$
+ }\\
+
+ In summary, the lemma holds.
+}
+\end{proof}
+
+
+
+\begin{lem}
+\label{C_3>=}
+For n $\geq$ 6, $\kappa(AQ_n,C_3) \geq n-1$.
+\end{lem}
+
+\begin{proof}
+\normalfont
+{
+
+We will prove this lemma by contradiction. Let $F_n^*$ be a $C_3$-structure set of $AQ_n$ and $|F_n^*| \leq n-2$. If $AQ_n-V(F_n^*)$ is disconnected, then we let $R$ be the smallest component of $AQ_n-V(F_n^*)$. Note that $|V(F_n^*)| \leq 3\times(n-2) = 3n-6$. By Lemma \ref{1_extraconnectivity}, we have $3n-6 < 4n-8$ for $n \geq 6$. Hence $|V(R)|=1$. Furthermore, we assume that vertex $u \in V(R)$. By Lemma \ref{min_C_3}, $|N(u) \cap V(F_n^*)| \leq 2n-2 < 2n-1$, which means that there exists at least one neighbor of $u$ in $AQ_n-V(F_n^*)$. Therefore, we have $|V(R)| \geq 2$, a contradiction. Thus, $AQ_n-V(F_n^*)$ is connected. The lemma holds.
+}
+\end{proof}
+\indent
+{
+By Lemma \ref{C_3<=} and Lemma \ref{C_3>=}, we have the following theorem.
+}
+\begin{thm}
+For n $\geq$ 6, $\kappa(AQ_n,C_3)=n-1$.
+\end{thm}
+
+%\subsubsection{$\kappa(AQ_n,C_4)$}
+%
+%
+%\begin{lem}
+%\label{C_4<=}
+%For n $\geq$ 4, $\kappa(AQ_n,C_4) \leq \lceil\frac{2n-1}{3}\rceil$.
+%\end{lem}
+%
+%\begin{prof}
+%\normalfont
+%{
+%Let $u$ be an arbitrary vertex in $AQ_n$. According to the value of ($2n-1$) mod 3, we will discuss the following three cases.\\
+%
+%\indent
+%{
+%\textbf{Case 1.} ($2n-1$) mod $3=0$. We set
+%}
+%
+%\begin{flushleft}
+%
+%$S_1=\{\{
+%v^{[3i+1]},
+%v^{[3i+3]},
+%v^{[3i+2]},
+%(v^{[3i+1]})^{\lfloor\frac{3i+1}{2}\rfloor+3}
+%\}\mid 0\leq i< \lfloor\frac{2n-1}{3}\rfloor-1$ and $i$ mod $2 = 0\}$,
+%
+%$S_2=\{\{
+%v^{[3i+1]},
+%v^{[3i+2]},
+%v^{[3i+3]},
+%(v^{[3i+1]})^{\lfloor\frac{3i+1}{2}\rfloor+2}
+%\}\mid 0\leq i< \lfloor\frac{2n-1}{3}\rfloor-1$ and $i$ mod $2 = 1\}$,
+%
+%$S_3=\{\{
+%v^{[2n-2]},
+%v^{[2n-3]},
+%v^{[2n-1]},
+%(v^{[2n-1]})^{n-1}
+%\}\}$.
+%
+%\end{flushleft}
+%
+%\indent
+%{
+%\textbf{Case 2.} ($2n-1$) mod $3=1$. We set
+%}
+%
+%\begin{flushleft}
+%
+%$S_1=\{\{
+%v^{[3i+1]},
+%v^{[3i+3]},
+%v^{[3i+2)]},
+%(v^{[3i+1]})^{\lfloor\frac{3i+1}{2}\rfloor+3}
+%\}\mid 0\leq i< \lfloor\frac{2n-1}{3}\rfloor$ and $i$ mod $2 = 0\}$,
+%
+%%下面这个地方注意一下
+%$S_2=\{\{
+%v^{[3i+1]},
+%v^{[3i+2]},
+%v^{[3i+3]},
+%(v^{[3i+1]})^{\lfloor\frac{3i+1}{2}\rfloor+2}
+%\}\mid 0\leq i< \lfloor\frac{2n-1}{3}\rfloor$ and $i$ mod $2 = 1\}$,
+%
+%$
+%{S_3}=
+%\{\{
+%v^{[2n-1]},
+%(\overline{v^{[2n-1]}})^1,
+%(\overline{v^{[2n-1]}})^2,
+%(\overline{v^{[2n-1]}})^3
+%\}\}$.
+%
+%\end{flushleft}
+%
+%\indent
+%{
+%\textbf{Case 3.} ($2n-1$) mod $3=2$. We set
+%}
+%
+%\begin{flushleft}
+%
+%$S_1=\{\{
+%v^{[3i+1]},
+%v^{[3i+3]},
+%v^{[3i+2)]},
+%(v^{[3i+1]})^{\lfloor\frac{3i+1}{2}\rfloor+3}
+%\}\mid 0\leq i< \lfloor\frac{2n-1}{3}\rfloor$ and $i$ mod $2 = 0\}$,
+%
+%%下面这个地方注意一下
+%$S_2=\{\{
+%v^{[3i+1]},
+%v^{[3i+2]},
+%v^{[3i+3]},
+%(v^{[3i+1]})^{\lfloor\frac{3i+1}{2}\rfloor+2}
+%\}\mid 0\leq i< \lfloor\frac{2n-1}{3}\rfloor$ and $i$ mod $2 = 1\}$,
+%
+%$
+%{S_3}=
+%\{\{
+%v^{[2n-2]},
+%v^{[2n-1]},
+%(\overline{v^{[2n-1]}})^{n-3},
+%(\overline{v^{[2n-1]}})^{n-2}
+%\}\}.
+%$
+%
+%\end{flushleft}
+%
+%
+%
+%According to the definition of $AQ_n$, the subgraph induced by each elements in $S_1\cup S_2\cup S_3$ is isomorphic to $C_4$ and $|S_1\cup S_2\cup S_3|$ = $\lceil\frac{2n-1}{3}\rceil$. Since $AQ_n-(S_1 \cup S_2\cup S_3)$ is disconnected and one component of it is \{$u$\}. Then $\kappa(AQ_n,C_4)$ $\leq$ $\lceil\frac{2n-1}{3}\rceil$.
+%}
+%\end{prof}
+%
+%\begin{lem}
+%\label{min_C_4}
+%Let $F_n$ be a $C_4$-structure set of $AQ_n$ and $u$ be a vertex in $AQ_n - V(F_n)$. If $u$ is an isolated vertex in  $AQ_n - V(F_n)$, then $|F_n|\geq \lceil\frac{2n-1}{3}\rceil$.
+%\end{lem}
+%
+%\begin{prof}
+%\normalfont
+%{
+%Let $u$ be an arbitrary vertex in $AQ_n$. According to the definition of $AQ_n$, property \ref{hypercube_edge} and property \ref{complement_edge}, any four neighbors of $u$ can't form a $C_4$ and each element in $F$ contains at most three distinct vertices in $N(u)$. Thus, $|F_n|\geq \lceil\frac{2n-1}{3}\rceil$.
+%}
+%\end{prof}
+%
+%
+%\begin{lem}
+%\label{C_4>=}
+%For n $\geq$ 6, $\kappa(AQ_n,C_4) \geq \lceil\frac{2n-1}{3}\rceil$.
+%\end{lem}
+%
+%\begin{prof}
+%\normalfont
+%{
+%Let $F_n^*$ be a $C_4$-structure set of $AQ_n$ and we will show that $AQ_n-V(F_n^*)$ is connected if $|F_n^*| \leq \lceil\frac{2n-1}{3}\rceil-1$. Suppose not, let $R$ be the smallest component of $AQ_n-V(F_n^*)$. Note that $|V(F_n^*)| \leq 4\times(\lceil\frac{2n-1}{3}\rceil-1)$. By Lemma \ref{1_extraconnectivity}, we have $4\times(\lceil\frac{2n-1}{3}\rceil-1) \leq 4n-8$ for $n \geq 6$. So $|V(R)|=1$. Therefore, we assume that vertex $u \in V(R)$. By Lemma \ref{min_C_4}, $|N(u) \cap V(F_n^*)| \leq 2n-2 < 2n-1$, which implies that there exists a neighbor of $u$ in $AQ_n-V(F_n^*)$. Therefore, we have $|V(R)| \geq 2$, a contradiction. Thus, $AQ_n-V(F_n^*)$ is connected. The lemma holds.
+%
+%}
+%\end{prof}
+%\indent
+%{
+%By Lemma \ref{C_4<=} and Lemma \ref{C_4>=}, we have the following theorem.
+%}
+%\begin{thm}
+%For n $\geq$ 6, $\kappa(AQ_n,C_4)=\lceil\frac{2n-1}{3}\rceil$.
+%\end{thm}
+
+\subsubsection{$\kappa(AQ_n,C_N )$ \textnormal{with} $4 \leq N \leq 2n-1$}
+
+\begin{lem}
+\label{C_N<=}
+For $n \geq$ 6 and $4 \leq N \leq 2n-1$, $\kappa(AQ_n,C_N) \leq \lceil\frac{2n-1}{N-1}\rceil$.
+\end{lem}
+\begin{proof}
+\normalfont
+{
+Let $u$ be an arbitrary vertex in $AQ_n$. According to the parity of $N$, we will discuss the following two cases.\\\\
+\indent
+{
+\textbf{Case 1.} $N$ is odd. We set\\\\
+}
+$S_1=\{\{
+v^{[(N-1)i+1]},
+v^{[(N-1)i+2]},
+\ldots,
+v^{[(i+1)(N-1)]},
+(\overline{v^{[(i+1)(N-1)]}})^{\lfloor\frac{(N-1)i+1}{2}\rfloor+1}
+\}\mid 0 \leq i < \lfloor\frac{2n-1}{N-1}\rfloor\}$.\\
+
+\indent
+{
+\textbf{Case 1.1.} $(2n-1)\equiv1$(mod $(N-1)$).\\\\
+}
+\indent
+{
+\textbf{Case 1.1.1.} $N \leq 2n-3$. We set\\\\
+}
+$S_2=\{\{
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(\overline{v^{[2n-1]}})^2,
+\ldots,
+(v^{[2n-1]})^{\lfloor\frac{N}{2}\rfloor},
+(\overline{v^{[2n-1]}})^{\lfloor\frac{N}{2}\rfloor},
+(v^{[2n-1]})^{\lceil\frac{N}{2}\rceil}
+\}\}$.\\
+
+\indent
+{
+\textbf{Case 1.1.2.} $N = 2n-1$. We set\\\\
+}
+$S_2=\{\{
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(\overline{v^{[2n-1]}})^2,
+\ldots,
+(v^{[2n-1]})^{n-3},
+(\overline{v^{[2n-1]}})^{n-3},
+(\overline{v^{[2n-1]}})^{n-2},\\
+((\overline{v^{[2n-1]}})^{n-2})^{n-4},
+(\overline{(\overline{v^{[2n-1]}})^{n-2}})^{n-4},
+((\overline{v^{[2n-1]}})^{n-2})^{n-3},
+(\overline{(\overline{v^{[2n-1]}})^{n-2}})^{n-3}
+\}\}$.\\
+
+\indent
+{
+\textbf{Case 1.2.} $(2n-1)\equiv3$(mod $(N-1)$). We set\\\\
+}
+%$S_2=\{\{
+%v^{(2n-2)},
+%v^{(2n-3)},
+%v^{(2n-1)},
+%(\overline{v^{(2n-1)}})^{2+n-N},
+%(\overline{v^{(2n-1)}})^{3+n-N},
+%\ldots,
+%(\overline{v^{(2n-1)}})^{n-2},
+%v^{(2n-2)}
+%\}\}$\\
+$S_2=\{\{
+v^{[2n-1]},
+v^{[2n-3]},
+v^{[2n-2]},
+(v^{[2n-2]})^{n-1-\frac{N-3}{2}},
+(\overline{v^{[2n-2]}})^{n-1-\frac{N-3}{2}},
+(v^{[2n-2]})^{n-\frac{N-3}{2}},
+\ldots,
+(v^{[2n-2]})^{n-2},\\
+(\overline{v^{[2n-2]}})^{n-2}
+\}\}$.\\
+
+\indent
+{
+\textbf{Case 1.3.} $(2n-1)>3$(mod $(N-1)$). We set\\\\
+}
+$S_2=\{\{
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1]},
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+2]},
+\ldots,
+v^{[2n-3]},
+v^{[2n-1]},
+v^{[2n-2]},\\
+(v^{[2n-2]})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+2-\frac{N-(2n-1-{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1))}{2}},
+(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+2-\frac{N-(2n-1-{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1))}{2}},\\
+(v^{[2n-2]})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+3-\frac{N-(2n-1-{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1))}{2}},
+(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+3-\frac{N-(2n-1-{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1))}{2}},\\
+\ldots,
+(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}
+\}\}$.\\\\
+
+
+\indent
+{
+\textbf{Case 2.} $N$ is even. We set\\\\
+}
+%$$ f(x)=\left\{
+%\begin{aligned}
+%\{\{
+%v^{[3i+1]},
+%v^{[3i+3]},
+%v^{[3i+2]},
+%(v^{[3i+1]})^{\lfloor\frac{3i+1}{2}\rfloor+3}\}
+%| {0\leq i<\lfloor\frac{2n-1}{N-1}\rfloor\textnormal{ and }i\textnormal{ mod }2 =0\textnormal{ and }N=4}\},\\
+%\{\{
+%v^{[(N-1)i+1]},
+%v^{[(N-1)i+2]},
+%\ldots,
+%v^{[(i+1)(N-1)]},
+%(\overline{{v^{[(i+1)(N-1)]}}})^{\lfloor\frac{(N-1)i+1}{2}\rfloor+1}\}
+%|0\leq i<\lfloor\frac{2n-1}{N-1}\rfloor\textnormal{ and }i\textnormal{ mod }2 =0\textnormal{ and }N\neq4\}.
+%\end{aligned}
+%\right.
+%$$
+$
+{S_1}=\left\{
+\begin{array}{lcr}
+\{\{
+v^{[3i+1]},
+v^{[3i+3]},
+v^{[3i+2]},
+(v^{[3i+1]})^{\lfloor\frac{3i+1}{2}\rfloor+3}\}
+\mid {0\leq i<\lfloor\frac{2n-1}{N-1}\rfloor\textnormal{ and }i \equiv0(\textnormal{ mod }2)\textnormal{ and }N=4}\},\\
+\{\{
+v^{[(N-1)i+1]},
+v^{[(N-1)i+2]},
+\ldots,
+v^{[(i+1)(N-1)]},
+(\overline{{v^{[(i+1)(N-1)]}}})^{\lfloor\frac{(N-1)i+1}{2}\rfloor+1}\}
+\mid 0\leq i<\lfloor\frac{2n-1}{N-1}\rfloor\textnormal{ and }\\i=0(\textnormal{mod }2)\textnormal{ and }N\neq4\}.\\
+\end{array}\right.
+$\\\\\\
+%\end{flushleft}
+%if $N=4$\\
+%$S_1=
+%\{\{
+%v^{[3i+1]},
+%v^{[3i+3]},
+%v^{[3i+2]},
+%(v^{[3i+1]})^{\lfloor\frac{3i+1}{2}\rfloor+3}
+%\}\mid 0\leq i< \lfloor\frac{2n-1}{3}\rfloor-1$, $i$ mod $2 = 0$ and $N=4\}$\\
+%
+%if $N \neq 4$\\
+%$S_1=
+%\{\{
+%v^{[(N-1)i+1]},
+%v^{[(N-1)i+2]},
+%\ldots,
+%v^{[(i+1)(N-1)]},
+%(\overline{{v^{[(i+1)(N-1)]}}})^{\lfloor\frac{(N-1)i+1}{2}\rfloor+1}
+%\}\mid 0\leq i< \lfloor\frac{2n-1}{N-1}\rfloor-1$, $i$ mod $2 = 0$ and $N \neq 4\}$\\
+$S_2=\{\{
+v^{[(N-1)i+1]},
+v^{[(N-1)i+2]},
+\ldots,
+v^{[(i+1)(N-1)]},
+({v^{[(i+1)(N-1)]}})^{\lfloor\frac{(N-1)i+1}{2}\rfloor+1}
+\}\mid 0\leq i< \lfloor\frac{2n-1}{N-1}\rfloor$ and $i=1$(mod 2)$\}$.\\
+
+If $(2n-1)  \equiv 0$ (mod $(N-1)$), then $S_3=\emptyset$; otherwise, we will discuss the following several cases,\\
+
+\indent
+{
+\textbf{Case 2.1.}  $(2n-1)\equiv1$(mod $(N-1)$). We set\\\\
+%此时N的取值只能小于等于n，N-1的取值不能等于2n-2，否则N是奇数，与前提条件矛盾
+}
+$S_3=\{\{
+v^{[2n-1]},
+(v^{[2n-1]})^1,
+(v^{[2n-1]})^2,
+(\overline{v^{[2n-1]}})^2,
+(v^{[2n-1]})^3,
+(\overline{v^{[2n-1]}})^3,
+\ldots,
+(v^{[2n-1]})^{\frac{N}{2}},
+(\overline{v^{[2n-1]}})^{\frac{N}{2}}
+\}\}$.\\
+
+
+\indent
+{
+\textbf{Case 2.2.}  $(2n-1)\equiv2$(mod $(N-1)$).\\\\
+%出现这种情况，要么N<=n,要么N=2n-2
+}
+\indent
+{
+\textbf{Case 2.2.1.}  $N < n$. We set\\\\
+}
+$S_3=\{\{
+v^{[2n-1]},
+v^{[2n-2]},
+(v^{[2n-2]})^{n-1},
+((v^{[2n-2]})^{n-1})^{n-2},
+\ldots,
+(((v^{[2n-2]})^{n-1})\ldots)^{n-(N-2)}
+\}\}$.\\
+
+\indent
+{
+\textbf{Case 2.2.2.}  $N = 2n-2$. We set\\\\
+}
+$S_3=\{\{
+v^{[2n-1]},
+v^{[2n-2]},
+(v^{[2n-2]})^1,
+(v^{[2n-2]})^2,
+(\overline{(v^{[2n-2]}})^2,
+(v^{[2n-2]})^3,
+(\overline{(v^{[2n-2]}})^3,
+\ldots,
+(v^{[2n-2]})^{n-2},\\
+(\overline{(v^{[2n-2]}})^{n-2},
+(v^{[2n-2]})^{n-1}
+\}\}$.\\
+
+\indent
+{
+\textbf{Case 2.3.} $(2n-1)\equiv3$(mod $(N-1)$). We set\\\\
+%此时N的取值只能小于n，N-1的取值不能等于2n-4，否则N是奇数，与前提条件矛盾
+}
+$S_3=\{\{
+v^{[2n-2)]},
+v^{[2n-3]},
+v^{[2n-1]},
+(\overline{v^{[2n-1]}})^{2+n-N},
+(\overline{v^{[2n-1]}})^{3+n-N},
+\ldots,
+(\overline{v^{[2n-1]}})^{n-2}
+\}\}$.\\
+
+\indent
+{
+\textbf{Case 2.4.} $(2n-1)\equiv4$(mod $(N-1)$). We set\\\\
+}
+\indent
+{
+\textbf{Case 2.4.1.}  $N < n$.\\\\
+}
+$S_3=\{\{
+v^{[2n-4]},
+v^{[2n-3]},
+v^{[2n-1]},
+v^{[2n-2]},
+(v^{[2n-2)]})^{4+n-N},
+(v^{[2n-2]})^{5+n-N},
+\ldots,
+(v^{[2n-2]})^{n-1}
+\}\}$.\\\\
+\indent
+{
+%这个地方在最后一个元素处改一下
+\textbf{Case 2.4.2.}  $N = 2n-4$. We set\\\\
+}
+%类似于110001,110010,110011,110100,110111
+$S_3=\{\{
+v^{[2n-4]},
+v^{[2n-3]},
+v^{[2n-1]},
+v^{[2n-2]},
+(\overline{v^{[2n-2]}})^3,
+(v^{[2n-2]})^4,
+(\overline{v^{[2n-2]}})^4,
+(v^{[2n-2]})^5,
+(\overline{v^{[2n-2]}})^5,
+\ldots,\\
+(\overline{v^{[2n-2]}})^{n-2},
+(v^{[2n-2]})^{n-1}
+\}\}$.\\
+
+\indent
+{
+%下面这句话好好看看
+\textbf{Case 2.5.}  $(2n-1)$ is odd(mod $(N-1)$)(except 1 and 3). We set\\\\
+}
+$S_3=\{\{
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1]},
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+2]},\ldots,
+v^{[2n-3]},
+v^{[2n-1]},
+v^{[2n-2]},\\
+(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor-N+2n-\lfloor\frac{2n-1}{N-1}\rfloor(N-1)+1},
+(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor-N+2n-\lfloor\frac{2n-1}{N-1}\rfloor(N-1)+2},\\
+\ldots,
+(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}
+\}\}$.\\\\
+
+\indent
+{
+\textbf{Case 2.6.}  $(2n-1)$ is even(mod $(N-1)$)(except 0, 2 and 4). \\\\
+}
+\indent
+{
+\textbf{Case 2.6.1.}  $N < n$.  We set\\\\
+}
+%S_3使用的u和v之间的转换关系是不是要统一一下
+$S_3=\{\{
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1]},
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+2]},
+\ldots,
+v^{[2n-3]},
+v^{[2n-1]},
+v^{[2n-2]},\\
+(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1},
+(\overline{(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor-N+2n-\lfloor\frac{2n-1}{N-1}\rfloor(N-1)+1},\\
+(\overline{(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor-N+2n-\lfloor\frac{2n-1}{N-1}\rfloor(N-1)+2},
+\ldots,\\
+(\overline{(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}
+\}\}$.\\
+
+\indent
+{
+\textbf{Case 2.6.2.}  $ n \leq N \leq 2n-6$.\\\\
+%类似于1010010,1010011,1010100,1010111,101000
+}
+%$S_3=\{\{
+%v^{[2n-2]},
+%v^{[2n-1]},
+%v^{[2n-3]},
+%\ldots,
+%v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+2]},
+%v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1]},\\
+%(v^{[2n-2]})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1},\\
+%(\overline{(v^{[2n-2]})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}-N+n+1},\\
+%((v^{[2n-2]})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}-N+n+2},\\
+%(\overline{(v^{[2n-2]})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}-N+n+2},\\
+%\ldots,\\
+%(\overline{(v^{[2n-2]})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}}
+%\}\}$\\
+\indent
+{
+\textbf{Case 2.6.2.1.}  $ n = N -1$. We set\\\\
+%类似于1010010,1010011,1010100,1010111,101000
+}
+$S_3=\{\{
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1]},
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+2]},
+\ldots,
+v^{[2n-3]},
+v^{[2n-1]},
+v^{[2n-2]},
+(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1},\\
+(v^{[2n-2]})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}
+\}\}$.\\
+
+\indent
+{
+\textbf{Case 2.6.2.2.}  $ n \neq N -1$. We set\\\\
+%类似于1010010,1010011,1010100,1010111,101000
+}
+$S_3=\{\{
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1]},
+v^{[{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+2]},
+\ldots,
+v^{[2n-3]},
+v^{[2n-1]},
+v^{[2n-2]},\\
+(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1},\\
+((\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}-N+n+1},
+(\overline{(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}-N+n+1},\\
+((\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}-N+n+2},
+(\overline{(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}-N+n+2},\\
+\ldots,
+((\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}-1},
+(\overline{(\overline{v^{[2n-2]}})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}})^{{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor}-1},\\
+(v^{[2n-2]})^{\lfloor\frac{{\lfloor\frac{2n-1}{N-1}\rfloor}(N-1)+1}{2}\rfloor+1}
+\}\}$.\\
+
+We set $S=S_1\cup S_2$ when $N$ is odd or $(2n-1) \equiv 0$ (mod $(N-1)$) ($S=S_1\cup S_2\cup S_3$, otherwise). According to the definition of $AQ_n$, the subgraph induced by each element in $S$ is isomorphic to $C_N$ and $|S|$ = $\lceil\frac{2n-1}{N-1}\rceil$. Let $W(S)=\cup_{f \in S}f$. Since $AQ_n- W(S)$ is disconnected and one component of it is \{$u$\}, $\kappa(AQ_n,C_N)$ $\leq$ $\lceil\frac{2n-1}{N-1}\rceil$. Figure \ref{C_5} shows a $C_5$-structure-cut in $AQ_6$.
+}
+\end{proof}
+
+\begin{figure}
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=0.3]{C_5.eps}\\
+  \caption{A $C_5$-structure-cut in $AQ_6$}\label{C_5}
+\end{figure}
+
+
+
+\begin{lem}
+\label{min_C_N}
+Let $F_n$ be a $C_N$-structure set of $AQ_n$ with $n \geq$ 6 and $4 \leq N \leq 2n-1$. If there exists an isolated vertex in  $AQ_n - V(F_n)$, then $|F_n|\geq \lceil\frac{2n-1}{N-1}\rceil$.
+\end{lem}
+
+\begin{proof}
+\normalfont
+{
+Let $u$ be an any vertex in $AQ_n$. According to the definition of $AQ_n$, Property \ref{hypercube_edge} and Property \ref{complement_edge}, any $N$ neighbors of $u$ cannot form a $C_N$ and each element in $F$ contains at most $N-1$ distinct vertices in $N(u)$. Thus, $|F_n|\geq \lceil\frac{2n-1}{N-1}\rceil$.
+}
+\end{proof}
+
+
+
+\begin{lem}
+\label{C_N>=}
+For $n \geq$ 6 and $4 \leq N \leq 2n-1$, $\kappa(AQ_n,C_N) \geq \lceil\frac{2n-1}{N-1}\rceil$.
+\end{lem}
+
+\begin{proof}
+\normalfont
+{
+%Let $F_n^*$ be a $C_N$-structure set of $AQ_n$ and we will show that $AQ_n-V(F_n^*)$ is connected if $F_n^* \leq \lceil\frac{2n-1}{N-1}\rceil-1$. Suppose not, let $R$ be the smallest component of $AQ_n-V(F_n^*)$. Not that $|V(F_n^*)| \leq N\times(\lceil\frac{2n-1}{N-1}\rceil-1)$. By Lemma \ref{1_extraconnectivity}, we have $N\times(\lceil\frac{2n-1}{N-1}\rceil-1) \leq 4n-8$ for $n \geq 6$. So $|V(R)|=1$. Therefore, we assume that vertex $u \in V(R)$. By Lemma \ref{min_C_N}, $|N(u) \cap V(F_n^*)| \leq 2n-2 < 2n-1$, which implies that there exists a neighbor of $u$ in $AQ_n-V(F_n^*)$. Therefore, we have $|V(R)| \geq 2$, a contradiction. Thus, $AQ_n-V(F_n^*)$ is connected. The lemma holds.
+
+We will prove this lemma by contradiction. Let $F_n^*$ be a $C_N$-structure set of $AQ_n$ and $|F_n|^* \leq \lceil\frac{2n-1}{N-1}\rceil-1$. If $AQ_n-V(F_n^*)$ is disconnected, then we let $R$ be the smallest component of $AQ_n-V(F_n^*)$. Not that $|V(F_n^*)| \leq N\times(\lceil\frac{2n-1}{N-1}\rceil-1)$. By Lemma \ref{1_extraconnectivity}, we have $N\times(\lceil\frac{2n-1}{N-1}\rceil-1) <4n-8$ for $n \geq 6$. Hence $|V(R)|=1$. Furthermore, we assume that vertex $u \in V(R)$. By Lemma \ref{min_C_N}, $|N(u) \cap V(F_n^*)| \leq 2n-2 < 2n-1$, which means that there exists at least one neighbor of $u$ in $AQ_n-V(F_n^*)$. Therefore, we have $|V(R)| \geq 2$, a contradiction. Thus, $AQ_n-V(F_n^*)$ is connected. The lemma holds.
+}
+\end{proof}
+\indent
+{
+By Lemma \ref{C_N<=} and Lemma \ref{C_N>=}, we have the following theorem.
+}
+\begin{thm}
+For n $\geq$ 6 and $4 \leq N \leq 2n-1$, $\kappa(AQ_n,C_N)=\lceil\frac{2n-1}{N-1}\rceil$.
+\end{thm}
+
+
+
+\section{Conclusions}
+
+
+In this paper, we study the $H$-structure and $H$-substructure connectivity of augmented cube.
+ %, two novel measures to estimate the reliability and fault-tolerability of the interconnection networks,
+The results are summarized as follows.\\
+
+(1) $\kappa(AQ_n,K_{1,M})=\kappa^s(AQ_n,K_{1,M})=\left\{
+\begin{array}{rcl}
+2n-1       &      &\textnormal{for }n \geq 4 \textnormal{ and } K_{1,M}=K_1,\\
+\lceil\frac{2n-1}{1+M}\rceil     &      &\textnormal{for }n \geq 4 \textnormal{ and } 1 \leq M \leq 3,\\
+\lceil\frac{n-1}{2}\rceil     &      &\textnormal{for } n \geq 6 \textnormal{ and } 4 \leq M \leq 6.
+\end{array} \right. $\\
+
+%$
+%\kappa(AQ_n,K_{1,M})=\kappa^s(AQ_n,K_{1,M})=\left\{
+%             \begin{array}{lr}
+%             2n-1 \qquad K_{1,M}=K_1,\\
+%             \lceil\frac{2n-1}{1+M}\rceil \qquad 1 \leq M \leq 3,\\
+%             \lceil\frac{n-1}{2}\rceil \qquad 4 \leq M \leq 6.\\
+%             \end{array}
+%\right.\\\\
+%$
+
+(2) $
+\kappa(AQ_n,P_L)=\kappa^s(AQ_n,P_L)=\lceil\frac{2n-1}{L}\rceil \quad \quad\textnormal{for } n \geq 3 \textnormal{ and } 1 \leq L \leq 2n-1.\\
+$
+
+(3) $
+\kappa^s(AQ_n,C_N)=\lceil\frac{2n-1}{N}\rceil \quad \quad\textnormal{for } n \geq 3 \textnormal{ and } 3 \leq N \leq 2n-1.\\
+$
+
+(4) $ \kappa(AQ_n,C_N)=\left\{
+\begin{array}{rcl}
+n-1     &      &\textnormal{for } n \geq 6 \textnormal{ and } N=3,\\
+\lceil\frac{2n-1}{N-1}\rceil       &      &\textnormal{for } n \geq 6 \textnormal{ and } 4 \leq N \leq 2n-1.
+\end{array} \right. $\\
+
+%$
+%\kappa(AQ_n,C_N)=\left\{
+%             \begin{array}{lcr}
+%             n-1  & {N=3},\\
+%            \lceil\frac{2n-1}{N-1}\rceil & 4 \leq N \leq 2n-1.
+%             \end{array}
+%\right.\\\\
+%$
+We study $K_{1,M}$ when $M$ is small $(1\leq M\leq6)$ in this paper. In the case of ensuring reliable communication, the number of faulty vertices that can be tolerated in augmented cube is almost twice the traditional connectivity under ideal conditions. In the future, we may focus on $M \geq 7$, which will make us more comprehensively realize the fault-tolerant ability of augmented cube. On the other hand, we may also study other properties of augmented cube with structure faults such as hamiltonian properties\cite{LvY2018,LvY2017}.
+
+%Compared to the traditional connectivity, structure connectivity and substructure connectivity have a greater impact on the augmented cube, which means that to make the augmented cube become disconnected or trivial, the minimal number of $H$-structures or $H$-substructure that need to be deleted is less than individual vertices. However, structural connectivity and substructure connectivity involve more vertices than traditional connectivity. In addition, $K_{1,M}$-structure connectivity and $K_{1,M}$-substructure  connectivity of the augmented cube with $M \geq 7$ remain open. The methods in this paper can also be used to explore more complex structure, such as hypercube, which will help us better study the fault tolerant ability of the network.
+
+%The structure and substructure connectivity evaluate the fault-tolerance not only from the perspective of individual vertex, but also from some structure of the network, which can be to some extent more precisely and practically than classical connectivity. Through the approach used in this paper, one can explore other interconnection networks's structure and substructure connectivity and more complex structures remain open.
+
+
+%\bibliographystyle{unsrt}
+%\bibliography{bib}
+
+\section*{Acknowledgment}
+%\noindent This work was supported by the National Natural Science Foundation of China (No. 61572337, No. 61972272, and No. 61602333) and the Natural Science Foundation of the Jiangsu Higher Education Institutions of China (No. 18KJA520009).
+\noindent This work was supported by the Joint Fund of National Natural Science Foundation of China (No. U1905211), and the National Natural Science Foundation of China (No. 61572337, No. 61972272, and No. 61702351), the Natural Science Foundation of the Jiangsu Higher Education Institutions of China (No. 18KJA520009), the Priority Academic Program Development of Jiangsu Higher Education Institutions, and the Natural Science Foundation of the Jiangsu Higher Education Institutions of China under Grant No 17KJB520036.
+\setcounter{tocdepth}{1}
+\begin{thebibliography}{20}
+
+%%1
+%\bibitem{Harary1983}
+%Harary, F. (1983) Conditional connectivity. {\it Networks}, 13, 347-357.
+%
+%%2
+%\bibitem{Lin2016}
+%Lin, C.-K., Zhang, L., Fan, J. and Wang, D. (2016)  Structure connectivity and substructure connectivity of hypercube. {\it Theoretical Computer Science}, 634, 97-107.
+%
+%%3
+%\bibitem{Choudum2002}
+%Choudum, S, A. and Sunitha, V. (2002) Augmented Cubes. {\it Networks}, 40, 71-84.
+%
+%%4
+%\bibitem{Latifi1994}
+%Latifi, S., Hegde, M. and Naraghi-Pour, M. (1994) Conditional connectivity measures for large multiprocessor systems. {\it IEEE Transactions on Computers}, 43, 218-222.
+%
+%%5
+%\bibitem{YANG2009887}
+%Yang, W. and Meng, J. (2009) Extraconnectivity of hypercubes. {\it Applied Mathematics Letters}, 22, 887-891.
+%
+%%6
+%\bibitem{HSIEH201263}
+%Hsieh, S. Y. and Chang, Y. H. (2012) Extraconnectivity of $k$-ary $n$-cube networks. {\it Theoretical Computer Science}, 443, 63-69
+%
+%%7
+%\bibitem{YU201386}
+%Yu, X., Huang, X. and Zhang, Z. (2013) A kind of conditional connectivity of Cayley graphs generated by unicyclic graphs. {\it Information Sciences}, 243, 86-94.
+%
+%%8
+%\bibitem{CHEN20071848}
+%Chen, Y. C. and Tan, J. J. M. (2007) Restricted connectivity for three families of interconnection networks. {\it Applied Mathematics and Computation}, 188, 1848-1855.
+%
+%%9
+%\bibitem{NING201765}
+%Ning, W. (2017) The $h$-connectivity of exchanged crossed cube. {\it Theoretical Computer Science}, 696, 65-68.
+%
+%%10
+%\bibitem{WAN2009264}
+%Wan, M. and Zhang, Z. (2009) A kind of conditional vertex connectivity of star graphs. {\it Applied Mathematics Letters}, 22, 264-267.
+%
+%%11
+%\bibitem{LinL2015}
+%Lin, L., Xu, L., Zhou, S. and  Hsieh, S. Y. (2015) The extra, restricted connectivity and conditional diagnosability of split-star networks. {\it IEEE Transactions on Parallel and Distributed Systems}, 27, 533-545.
+%
+%%12
+%\bibitem{FABREGA199649}
+%F{\`{a}}brega, J. and Fiol, M. A. (1996) On the extraconnectivity of graphs. {\it Discrete Mathematics}, 155, 49-57.
+%
+%%13
+%\bibitem{Yang2013}
+%Yang, W. and Lin, H. (2013) Reliability evaluation of BC networks in terms of the extra vertex-and edge-connectivity. {\it IEEE transactions on computers}, 63, 2540-2548.
+%
+%%14
+%\bibitem{Sabir2018}
+%Sabir, E. and Meng, J. (2018) Structure fault tolerance of hypercubes and folded hypercubes. {\it Theoretical Computer Science}, 711, 44-55.
+%
+%%15
+%\bibitem{ZHANG2014374}
+%Zhang, M., Meng, J., Yang, W. and Tian, Y. (2014) Reliability analysis of bijective connection networks in terms of the extra edge-connectivity. {\it Information Sciences}, 279, 374-382.
+%
+%%16
+%\bibitem{Lv2018}
+%Lv, Y., Fan, J., Hsu, D. F. and Lin, C.-K. (2018) Structure connectivity and substructure connectivity of $k$-ary $n$-cube networks. {\it Information Sciences}, 433, 115-124.
+%
+%%17
+%\bibitem{Huazhong}
+%L\"{u}, H. and Wu, T. (2018) Structure and substructure connectivity of balanced hypercubes. {\it arXiv preprint arXiv:1808.02375.}
+%
+%%18
+%\bibitem{Dong2018Structure}
+%Li, D., Hu, X. and Liu, H. (2019) Structure connectivity and substructure connectivity of twisted hypercubes. {\it arXiv preprint arXiv:1803.08408}.
+%
+%%19
+%\bibitem{Wang2018336}
+%Wang, S. and Ma, X. (2018) The $g$-extra connectivity and diagnosability of crossed cubes. {\it Applied Mathematics and Computation}, 336, 60-66.
+%
+%%20
+%\bibitem{4335424}
+%Boesch, F. T. (1986) Synthesis of reliable networks: a survey. {\it IEEE Transactions on Reliability}, 35, 240-246.
+%
+%%21
+%\bibitem{Wang201852}
+%Wang, S. and Wang, M. (2018) The strong connectivity of bubble-sort star graphs. {\it The Computer Journal}, 62, 715-729.
+%
+%%22
+%\bibitem{Boesch1984}
+%Boesch, F. and Tindell, R. (1984) Circulants and their connectivities. {\it Journal of Graph Theory}, 8, 487-499.
+%
+%%23
+%\bibitem{Ma2008}
+%Ma, M., Liu, G. and Xu, J. M. (2008) The super connectivity of augmented cubes. {\it Information Processing Letters}, 106, 59-63.
+%
+%%24
+%\bibitem{wang2019structure}
+%Wang, G., Lin, C.-K., Cheng, B., Fan, J. and Fan, W. (2019) Structure fault-tolerance of the generalized hypercube. {\it The Computer Journal}.
+%
+%%25
+%\bibitem{Hsu2005}
+%Hsu, H. C., Chiang, L. C., Tan, J. J. M. and Hsu, L, H. (2005) Fault hamiltonicity of augmented cubes. {\it Parallel Computing}, 31, 131-145.
+%
+%%26
+%\bibitem{Ma2007Panconnectivity}
+%Ma, M., Liu, G. and Xu, J. M. (2007) Panconnectivity and edge-fault-tolerant pancyclicity of augmented cubes. {\it Parallel Computing}, 33, 36-42.
+
+%1
+\bibitem{Harary1983}
+F. Harary, Conditional connectivity, Networks 13(3) (1983) 347-357.
+
+%2
+\bibitem{Lin2016}
+C.-K. Lin, L. Zhang, J. Fan, D. Wang,  Structure connectivity and substructure connectivity of hypercube, Theoretical Computer Science 634  (2016) 97-107.
+
+%3
+\bibitem{Choudum2002}
+S. A. Choudum, V. Sunitha, Augmented Cubes, Networks 40(2) (2002) 71-84.
+
+%4
+\bibitem{Latifi1994}
+S. Latifi, M. Hegde, M. Naraghi-Pour, Conditional connectivity measures for large multiprocessor systems, IEEE Transactions on Computers 43(2)  (1994) 218-222.
+
+%5
+\bibitem{YANG2009887}
+W. Yang, J. Meng, Extraconnectivity of hypercubes, Applied Mathematics Letters 22(6)  (2009) 887-891.
+
+\bibitem{GuoLGuoX}
+L. Guo, X. Guo, A new kind of parameter for fault tolerance of graphs, Concurrency and Computation: Practice and Experience 31(10): e4787 (2019).
+
+%6
+\bibitem{HSIEH201263}
+S.-Y. Hsieh, Y.-H. Chang,  Extraconnectivity of $k$-ary $n$-cube networks,  Theoretical Computer Science 443 (2012) 63-69
+
+%7
+\bibitem{YU201386}
+X. Yu, X. Huang, Z. Zhang, A kind of conditional connectivity of Cayley graphs generated by unicyclic graphs, Information Sciences 243 (2013) 86-94.
+
+%8
+\bibitem{CHEN20071848}
+Y.-C. Chen, J. J. M. Tan, Restricted connectivity for three families of interconnection networks, Applied Mathematics and Computation 188(2) (2007) 1848-1855.
+
+\bibitem{GuoLLeeCW}
+L. Guo, C. W. Lee, Reliability analysis of the bijective connection networks for components, Mathematics 7(6) (2019) 546.
+
+%9
+\bibitem{NING201765}
+W. Ning, The $h$-connectivity of exchanged crossed cube, Theoretical Computer Science 696 (2017) 65-68.
+
+%10
+\bibitem{WAN2009264}
+M. Wan, Z. Zhang, A kind of conditional vertex connectivity of star graphs,  Applied Mathematics Letters 22(2) (2009) 264-267.
+
+\bibitem{GuoLQinC}
+L. Guo, C. Qin, L. Xu, Subgraph fault tolerance of distance optimally edge connected hypercubes and folded hypercubes, Journal of Parallel and Distributed Computing (2020).
+
+%11
+\bibitem{LinL2015}
+L. Lin, L. Xu, S. Zhou, S.-Y. Hsieh, The extra, restricted connectivity and conditional diagnosability of split-star networks, IEEE Transactions on Parallel and Distributed Systems 27(2)  (2015) 533-545.
+
+%12
+\bibitem{FABREGA199649}
+J. F{\`{a}}brega, M. A. Fiol, On the extraconnectivity of graphs, Discrete Mathematics 155(1-3)  (1996) 49-57.
+
+%13
+\bibitem{Yang2013}
+W. Yang, H. Lin, Reliability evaluation of BC networks in terms of the extra vertex-and edge-connectivity, IEEE transactions on computers 63(10) (2013) 2540-2548.
+
+%14
+\bibitem{Sabir2018}
+E. Sabir, J. Meng, Structure fault tolerance of hypercubes and folded hypercubes, Theoretical Computer Science 711 (2018) 44-55.
+
+%15
+\bibitem{ZHANG2014374}
+M. Zhang, J. Meng, W. Yang, Y. Tian, Reliability analysis of bijective connection networks in terms of the extra edge-connectivity, Information Sciences 279 (2014) 374-382.
+
+%16
+\bibitem{Lv2018}
+Y. Lv, J. Fan, D. F. Hsu, C.-K. Lin, Structure connectivity and substructure connectivity of $k$-ary $n$-cube networks, Information Sciences 433 (2018) 115-124.
+
+
+%17
+\bibitem{Huazhong}
+H. L\"{u}, T. Wu, Structure and substructure connectivity of balanced hypercubes, arXiv preprint arXiv:1808.02375 (2018)
+
+%18
+\bibitem{Dong2018Structure}
+D. Li, X. Hu, H. Liu, Structure connectivity and substructure connectivity of twisted hypercubes, Theoretical Computer Science 796 (2019) 169-179
+
+%19
+\bibitem{Wang2018336}
+S. Wang, X. Ma, The $g$-extra connectivity and diagnosability of crossed cubes, Applied Mathematics and Computation 336 (2018) 60-66.
+
+%20
+\bibitem{4335424}
+F. T. Boesch, Synthesis of reliable networks: a survey, IEEE Transactions on Reliability 35(3) (1986) 240-246.
+
+%21
+\bibitem{Wang201852}
+S. Wang, M. Wang, The strong connectivity of bubble-sort star graphs, The Computer Journal 62(5) (2018) 715-729.
+
+%22
+\bibitem{Boesch1984}
+F. Boesch, R. Tindell, Circulants and their connectivities, Journal of Graph Theory 8(4) (1984) 487-499.
+
+%23
+\bibitem{Ma2008}
+M. Ma, G. Liu, J.-M. Xu, The super connectivity of augmented cubes, Information Processing Letters 106(2) (2008) 59-63.
+
+%24
+\bibitem{wang2019structure}
+G. Wang, C.-K. Lin, B. Cheng, J. Fan, W. Fan, Structure fault-tolerance of the generalized hypercube, The Computer Journal (2019).
+
+%25
+\bibitem{Hsu2005}
+H.-C. Hsu, L.-C. Chiang, J. J. M. Tan, L.-H. Hsu, Fault hamiltonicity of augmented cubes, Parallel Computing 31(1) (2005) 131-145.
+
+%26
+\bibitem{Ma2007Panconnectivity}
+M. Ma, G. Liu, J.-M. Xu, Panconnectivity and edge-fault-tolerant pancyclicity of augmented cubes, Parallel Computing 33(1) (2007) 36-42.
+
+\bibitem{LvY2018}
+Y. Lv, C.-K. Lin, J. Fan, X. Jiang, Hamiltonian cycle and path embeddings in 3-ary $n$-cubes based on $K_{1,3}$-structure faults, Journal of Parallel and Distributed Computing 120 (2018) 148-158.
+
+\bibitem{LvY2017}
+Y. Lv, C.-K. Lin, J. Fan, Hamiltonian cycle and path embeddings in $k$-ary $n$-cubes based on structure faults, The Computer Journal 60(2) (2017) 159-179.
+
+\end{thebibliography}
+
+\end{document}

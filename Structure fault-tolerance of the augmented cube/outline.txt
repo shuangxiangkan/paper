@@ -1,0 +1,7 @@
+Firstly,Briefly talk about the role of the network in distributed and parallel system, 
+then explain connectivity and its importance in assessing network stability and fault tolerance of network. 
+Futhermore,introduce the shortcomings of this connectivity in evaluating network stability
+and propose several kinds of connectivity variants to make up for the shortcomings, 
+with emphasis on extra connectivity, because this connectivity will be used in subsequent papers.
+Then, introduce the structural connectivity and augmented cube that will be demonstrated in this paper.
+Finally, the structure of the paper is explained.
